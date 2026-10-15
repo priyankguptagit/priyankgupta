@@ -45,7 +45,7 @@ export const profilePhoto = {
 
 export const primaryNav: readonly NavItem[] = [
   { label: 'Home', href: '/', description: 'Overview and highlights' },
-  { label: 'About', href: '/aboutt', description: 'Professional story and principles' },
+  { label: 'About', href: '/about', description: 'Professional story and principles' },
   { label: 'Experience', href: '/experience', description: 'Career timeline' },
   { label: 'Skills', href: '/skills' },
   { label: 'Projects', href: '/projects' },
