@@ -1,18 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Header } from '@/components/layout/Header';
-jest.mock('next/navigation', () => ({ usePathname: () => '/skills' }));
+
+jest.mock('next/navigation', () => ({ usePathname: () => '/expertise' }));
+
 it('marks the active page and exposes all required navigation', async () => {
   const user = userEvent.setup();
   render(<Header />);
   await user.click(screen.getByRole('button', { name: 'More' }));
-  expect(screen.getByRole('link', { name: 'Skills' })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: 'Expertise' })).toHaveAttribute(
     'aria-current',
     'page'
   );
-  expect(screen.getByRole('link', { name: 'Audiences' })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: 'Education' })).toHaveAttribute(
     'href',
-    '/audiences'
+    '/education'
   );
 });
 it('toggles mobile navigation and returns focus on Escape', async () => {

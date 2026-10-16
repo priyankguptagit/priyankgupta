@@ -8,15 +8,15 @@ export const siteConfig = {
   name: 'Priyank Gupta',
   /** Flip NEXT_PUBLIC_USE_DOCTOR_TITLE once the Ph.D. record is confirmed. */
   useDoctorTitle: false,
-  role: 'Senior Solution Architect',
+  role: 'Software Architect | Technology Leader | Engineering Problem Solver',
   headline:
-    'Senior Solution Architect | Enterprise Architect | Full-Stack Technology Leader | MERN and Next.js Specialist',
+    'Software Architect | Technology Leader | Engineering Problem Solver',
   tagline:
-    'Transforming business needs into scalable digital solutions.',
+    'Building scalable software solutions, designing reliable architectures, and sharing practical engineering knowledge.',
   altTagline:
     'Practical architecture. Maintainable software. Shared knowledge.',
   description:
-    'Senior Solution Architect and full-stack technology professional with 14+ years of experience across enterprise applications, modern web development, cloud, DevOps, testing and applied AI.',
+    'Software architect and technology leader focused on scalable systems, modern application engineering, architecture strategy, and practical knowledge sharing.',
   experience: '14+ years of IT experience',
   location: '',
   shortLocation: 'Online and offline, subject to availability',
@@ -47,19 +47,16 @@ export const primaryNav: readonly NavItem[] = [
   { label: 'Home', href: '/', description: 'Overview and highlights' },
   { label: 'About', href: '/about', description: 'Professional story and principles' },
   { label: 'Experience', href: '/experience', description: 'Career timeline' },
-  { label: 'Skills', href: '/skills' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Knowledge Sharing', href: '/knowledge-sharing' },
-  { label: 'Audiences', href: '/audiences' },
-  { label: 'Sessions', href: '/sessions' },
-  { label: 'Achievements', href: '/achievements' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Expertise', href: '/expertise' },
+  { label: 'Writing', href: '/writing' },
   { label: 'Contact', href: '/contact', description: 'Get in touch' },
 ] as const;
 
 export const footerNav: readonly NavItem[] = [
   { label: 'Public resume', href: '/resume' },
   { label: 'Education', href: '/education' },
+  { label: 'Achievements', href: '/achievements' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'Privacy', href: '/privacy' },
   { label: 'Disclaimer', href: '/disclaimer' },

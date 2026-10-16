@@ -11,16 +11,21 @@ import { cn } from '@/lib/utils';
 import { ThemeToggle } from './ThemeToggle';
 
 const featuredNav = [
+  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Experience', href: '/experience' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Workshops', href: '/knowledge-sharing' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Expertise', href: '/expertise' },
+  { label: 'Writing', href: '/writing' },
   { label: 'Contact', href: '/contact' },
 ];
-const secondaryNav = primaryNav.filter(
-  (item) => !featuredNav.some((featured) => featured.href === item.href)
-);
+const secondaryNav = [
+  { label: 'Resume', href: '/resume' },
+  { label: 'Education', href: '/education' },
+  { label: 'Achievements', href: '/achievements' },
+  { label: 'Testimonials', href: '/testimonials' },
+  { label: 'Accessibility', href: '/accessibility' },
+];
 
 export function Header() {
   const pathname = usePathname();
@@ -201,10 +206,10 @@ export function Header() {
           </div>
         </nav>
         <Link
-          href="/contact?category=Workshop%20Request"
+          href="/contact"
           className="action-button hidden min-h-11 shrink-0 items-center justify-center rounded-md border border-white/20 bg-white/5 px-4 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-white/10 xl:inline-flex"
         >
-          Book a Session
+          Get in Touchh
         </Link>
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
@@ -265,7 +270,7 @@ export function Header() {
                     active(item.href) && 'bg-ink-800 font-semibold text-aqua-300'
                   )}
                 >
-                  {item.href === '/knowledge-sharing' ? 'Workshops' : item.label}
+                  {item.label}
                 </Link>
               </m.li>
             ))}
@@ -289,9 +294,9 @@ function NavigationProfile() {
       <div>
         <p className="text-base font-semibold text-white">{siteConfig.name}</p>
         <p className="mt-1 text-xs leading-relaxed text-slate-400">
-          Senior Solution Architect
+          Software Architect
           <br />
-          Trainer &amp; Technology Mentor
+          Technology Leader &amp; Mentor
         </p>
         <p className="mt-2 text-xs text-emerald-300">14+ years of experience</p>
       </div>

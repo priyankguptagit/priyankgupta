@@ -65,8 +65,12 @@ it('requires conditional event/audience fields and supports offline requests', a
   );
   await user.selectOptions(screen.getByLabelText(/^Preferred Delivery Mode/), 'Offline');
   expect(screen.getByLabelText(/^Venue Availability/)).toBeInTheDocument();
-  await user.type(screen.getByLabelText(/^Proposed Topic/), 'Next.js fundamentals');
-  await user.type(screen.getByLabelText(/^Expected Number of Participants/), '20');
+  fireEvent.change(screen.getByLabelText(/^Proposed Topic/), {
+    target: { value: 'Next.js fundamentals' },
+  });
+  fireEvent.change(screen.getByLabelText(/^Expected Number of Participants/), {
+    target: { value: '20' },
+  });
   await user.click(screen.getByRole('button', { name: 'Send request' }));
   await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(reference));
   const fetchMock = global.fetch as jest.Mock;

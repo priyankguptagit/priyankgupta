@@ -47,7 +47,8 @@ export function Hero() {
             what comes next.
           </h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Enterprise systems, applied AI and practical learning. Built around people.
+            I design reliable systems, translate business needs into practical architecture,
+            and help teams move from complexity to clarity.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <ButtonLink href="/projects" className="px-3 sm:px-6">
