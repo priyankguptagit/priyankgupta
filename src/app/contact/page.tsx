@@ -6,6 +6,7 @@ import { createMetadata } from '@/lib/seo';
 import {
   ArrowUpRight,
   CalendarDays,
+  Mail,
   MessagesSquare,
   ShieldCheck,
   Sparkles,
@@ -51,10 +52,10 @@ export default async function ContactPage({
             />
           </div>
           <aside className="lg:sticky lg:top-28 lg:col-start-1 lg:row-start-1">
-            <div className="mb-6 max-w-[190px] px-4">
+            <div className="mb-6 max-w-47.5 px-4">
               <Portrait />
             </div>
-            <p className="mb-2 font-mono text-xs text-aqua-300">PRIYANK GUPTA</p>
+            <p className="mb-2 font-mono text-xs text-aqua-300">DR. PRIYANK GUPTA</p>
             <h2 className="text-2xl font-semibold text-white">
               A conversation,
               <br />
@@ -91,12 +92,21 @@ export default async function ContactPage({
               <p className="text-sm">{siteConfig.privacyNote}</p>
             </div>
             {siteConfig.email && (
-              <a
-                className="mt-4 inline-block underline"
-                href={`mailto:${siteConfig.email}`}
-              >
-                {siteConfig.email}
-              </a>
+              <div className="mt-6 rounded-xl border border-white/10 bg-white/3 p-4">
+                <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                  <Mail size={17} className="text-aqua-300" aria-hidden="true" />
+                  Prefer email?
+                </div>
+                <a
+                  className="mt-2 inline-flex min-h-11 items-center text-sm text-aqua-300 underline decoration-aqua-300/40 underline-offset-4 transition-colors hover:text-white"
+                  href={`mailto:${siteConfig.email}`}
+                >
+                  {siteConfig.email}
+                </a>
+                <p className="text-xs leading-relaxed text-slate-400">
+                  You can also contact me directly at this address.
+                </p>
+              </div>
             )}
           </aside>
         </div>

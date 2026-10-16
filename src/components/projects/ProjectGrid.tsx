@@ -15,7 +15,9 @@ export function ProjectGrid({ projects, onSelectProject }: { readonly projects: 
   return (
     <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
       {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} onSelect={onSelectProject} />
+        <div key={project.id} id={project.id} className="scroll-mt-28">
+          <ProjectCard project={project} onSelect={onSelectProject} />
+        </div>
       ))}
     </div>
   );

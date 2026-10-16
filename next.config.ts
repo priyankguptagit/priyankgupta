@@ -15,6 +15,7 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
   `connect-src 'self' ${apiOrigin}${isDev ? ' ws: wss:' : ''}`,
+  "frame-src 'self' https://maps.google.com https://www.google.com",
   "form-action 'self'",
   "frame-ancestors 'none'",
   "base-uri 'self'",

@@ -84,12 +84,8 @@ export function ContactForm({
     try {
       const result = await submitInquiry(parsed.data);
       setStatus(result.ok ? 'success' : 'error');
-      setMessage(
-        result.reference
-          ? `${result.message} Reference: ${result.reference}`
-          : result.message
-      );
-      if (result.ok) {
+      setMessage(result.message);
+      if (result.ok || result.recordSubmitted) {
         setValues(initialValues(initialCategory));
         setConsent(false);
         setWebsite('');

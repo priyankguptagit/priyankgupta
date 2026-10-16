@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { path: '/testimonials', priority: 0.4, changeFrequency: 'yearly' },
       { path: '/disclaimer', priority: 0.3, changeFrequency: 'yearly' },
       { path: '/education', priority: 0.7, changeFrequency: 'yearly' },
-      { path: '/skills', priority: 0.8, changeFrequency: 'monthly' },
+      { path: '/expertise', priority: 0.9, changeFrequency: 'monthly' },
       { path: '/projects', priority: 0.7, changeFrequency: 'monthly' },
       { path: '/blog', priority: 0.8, changeFrequency: 'monthly' },
       { path: '/contact', priority: 0.8, changeFrequency: 'yearly' },

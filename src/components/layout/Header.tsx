@@ -13,14 +13,13 @@ import { ThemeToggle } from './ThemeToggle';
 const featuredNav = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Publications', href: '/publications' },
   { label: 'Projects', href: '/projects' },
   { label: 'Expertise', href: '/expertise' },
+  { label: 'Publications', href: '/publications' },
+  { label: 'Resume', href: '/resume' },
   { label: 'Contact', href: '/contact' },
 ];
 const secondaryNav = [
-  { label: 'Resume', href: '/resume' },
-  { label: 'Education', href: '/education' },
   { label: 'Achievements', href: '/achievements' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'Accessibility', href: '/accessibility' },

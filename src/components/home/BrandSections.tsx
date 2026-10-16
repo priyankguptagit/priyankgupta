@@ -26,7 +26,7 @@ const innovationAreas = [
     title: 'AI Agents',
     icon: Bot,
     text: 'Exploring purposeful agents, human oversight and responsible AI integration.',
-    href: '/skills#ai',
+    href: '/expertise#ai',
   },
   {
     title: 'Copilot Solutions',
@@ -103,7 +103,7 @@ export function InnovationSection() {
             <ArchitectureScene />
           </Parallax>
           <div className="mt-6">
-            <ButtonLink href="/skills" variant="ghost">
+            <ButtonLink href="/expertise#capabilities" variant="ghost">
               Explore My Expertise <ArrowUpRight size={17} aria-hidden="true" />
             </ButtonLink>
           </div>

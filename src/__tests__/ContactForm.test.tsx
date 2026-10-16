@@ -44,7 +44,9 @@ it('submits normalized data to the separate REST API and announces success', asy
   render(<ContactForm />);
   await fillRequired(user);
   await user.click(screen.getByRole('button', { name: 'Send request' }));
-  await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(reference));
+  await waitFor(() =>
+    expect(screen.getByRole('status')).toHaveTextContent('Record submitted')
+  );
   expect(global.fetch).toHaveBeenCalledWith(
     'http://localhost:5000/api/v1/inquiries',
     expect.objectContaining({ credentials: 'omit', method: 'POST' })
@@ -72,7 +74,9 @@ it('requires conditional event/audience fields and supports offline requests', a
     target: { value: '20' },
   });
   await user.click(screen.getByRole('button', { name: 'Send request' }));
-  await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(reference));
+  await waitFor(() =>
+    expect(screen.getByRole('status')).toHaveTextContent('Record submitted')
+  );
   const fetchMock = global.fetch as jest.Mock;
   expect(JSON.parse(fetchMock.mock.calls[0]?.[1].body)).toMatchObject({
     audienceCategory: 'Other',
@@ -135,7 +139,9 @@ it('prevents duplicate submissions and exposes a loading state', async () => {
   expect(screen.getByLabelText(/^Full Name/)).toBeDisabled();
   expect(screen.getByRole('checkbox')).toBeDisabled();
   resolveRequest({ ok: true, status: 201, json: async () => success });
-  await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(reference));
+  await waitFor(() =>
+    expect(screen.getByRole('status')).toHaveTextContent('Record submitted')
+  );
 });
 it('uses shared phone validation and preserves valid fields', async () => {
   const user = userEvent.setup();

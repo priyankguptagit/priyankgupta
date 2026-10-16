@@ -8,7 +8,7 @@ import type { Project } from '@/types';
 
 export function ProjectCard({ project, onSelect }: { readonly project: Project; readonly onSelect: (project: Project) => void }) {
   return (
-    <Card as="article" interactive className="group flex h-full flex-col overflow-hidden p-4 sm:p-4 lg:p-4">
+    <Card as="article" interactive padding="compact" className="group flex h-full flex-col overflow-hidden">
       <div className="mb-3 border-b border-white/10 pb-3">
         <div className="mb-2 flex flex-wrap items-center gap-1.5">
           <Badge>{project.category}</Badge>

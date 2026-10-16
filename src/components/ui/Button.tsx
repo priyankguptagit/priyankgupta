@@ -34,11 +34,13 @@ interface CommonProps {
 type ButtonLinkProps = CommonProps & {
   readonly href: string;
   readonly external?: boolean;
+  readonly download?: boolean | string;
 };
 
 export function ButtonLink({
   href,
   external = false,
+  download,
   variant = 'primary',
   size = 'md',
   className,
@@ -48,14 +50,20 @@ export function ButtonLink({
 
   if (external) {
     return (
-      <a href={href} className={classes} rel="noopener noreferrer" target="_blank">
+      <a
+        href={href}
+        className={classes}
+        rel="noopener noreferrer"
+        target="_blank"
+        download={download}
+      >
         {children}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={classes}>
+    <Link href={href} className={classes} download={download}>
       {children}
     </Link>
   );

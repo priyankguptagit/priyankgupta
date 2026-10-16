@@ -34,10 +34,13 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-semibold text-white">Purpose and storage</h2>
             <p className="mt-3">
               Validated inquiries are stored in a private MongoDB database to review and
-              respond to professional queries and coordinate requested sessions. No
-              account or automatic marketing subscription is created. Submission contents
-              are not written to application logs. A temporary network identifier is used
-              in memory for abuse rate limiting and is not stored with the inquiry.
+              respond to professional queries and coordinate requested sessions. A
+              notification containing the submitted details is also sent to the site
+              owner through Resend, an email delivery provider; the email address you
+              provide is set as the reply-to address. No account or automatic marketing
+              subscription is created. Submission contents are not written to
+              application logs. A temporary network identifier is used in memory for
+              abuse rate limiting and is not stored with the inquiry.
             </p>
           </section>
           <section>

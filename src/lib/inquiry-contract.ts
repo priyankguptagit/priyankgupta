@@ -90,7 +90,7 @@ export const inquiryStatuses = [
 ] as const;
 
 export const successMessage =
-  'Thank you. Your request has been received. I will review the details and respond based on availability.';
+  'Record submitted';
 
 export function isEventCategory(category: string): boolean {
   return ![

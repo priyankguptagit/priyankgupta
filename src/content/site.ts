@@ -20,7 +20,7 @@ export const siteConfig = {
   experience: '14+ years of IT experience',
   location: '',
   shortLocation: 'Online and offline, subject to availability',
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || '',
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'guptapriyank87@gmail.com',
   alternateEmail: '',
   phone: '',
   phoneHref: '',
@@ -54,13 +54,20 @@ export const primaryNav: readonly NavItem[] = [
 
 export const footerNav: readonly NavItem[] = [
   { label: 'Public resume', href: '/resume' },
-  { label: 'Education', href: '/education' },
   { label: 'Achievements', href: '/achievements' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'Privacy', href: '/privacy' },
   { label: 'Disclaimer', href: '/disclaimer' },
   { label: 'Accessibility', href: '/accessibility' },
 ] as const;
+
+export const footerMap = {
+  title: 'MFAR Building, Manyata Tech Park',
+  address: 'Bengaluru, Karnataka',
+  query: 'MFAR, Manyata Tech Park, Bengaluru, Karnataka',
+  mapsUrl:
+    'https://www.google.com/maps/search/?api=1&query=MFAR%2C%20Manyata%20Tech%20Park%2C%20Bengaluru%2C%20Karnataka',
+} as const;
 
 /**
  * Public profiles. Handles are placeholders until the real URLs are supplied;
