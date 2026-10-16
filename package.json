@@ -2,7 +2,7 @@
   "name": "priyankgupta",
   "version": "1.0.0",
   "private": true,
-  "description": "Professional profile and knowledge-sharing platform for Priyank Gupta.",
+  "description": "Professional profile and knowledge-sharing platform for Dr. Priyank Gupta.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

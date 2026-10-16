@@ -9,7 +9,7 @@ import { coreSkills } from '@/content/expertise';
 import { createMetadata } from '@/lib/seo';
 export const metadata = createMetadata({
   title: 'Public Resume',
-  description: 'Privacy-safe professional resume for Priyank Gupta.',
+  description: 'Privacy-safe professional resume for Dr. Priyank Gupta.',
   path: '/resume',
 });
 export default function ResumePage() {
@@ -29,6 +29,7 @@ export default function ResumePage() {
             <li key={role.id}>
               <h3 className="font-semibold text-white">{role.designation}</h3>
               <p>{role.company}</p>
+              <p className="text-sm text-slate-300">{role.location}</p>
               <p className="text-sm">
                 {role.startDate} - {role.endDate}
               </p>

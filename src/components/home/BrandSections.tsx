@@ -44,7 +44,7 @@ const innovationAreas = [
     title: 'Digital Transformation',
     icon: Layers3,
     text: 'Evolving enterprise applications around real business needs and sustainable delivery.',
-    href: '/experience',
+    href: '/about#experience-journey',
   },
   {
     title: 'Architecture Consulting',

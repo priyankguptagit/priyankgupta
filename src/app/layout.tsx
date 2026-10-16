@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
   keywords: [
-    'Priyank Gupta',
+    'Dr. Priyank Gupta',
     'Senior Solution Architect',
     'Enterprise Architecture',
     'MERN',
@@ -38,11 +38,20 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} — ${siteConfig.role}`,
     description: siteConfig.description,
     locale: siteConfig.locale,
+    images: [
+      {
+        url: `${siteConfig.url}/images/PriyankGupta.png`,
+        width: 181,
+        height: 236,
+        alt: `${siteConfig.name} — ${siteConfig.role}`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${siteConfig.name} — ${siteConfig.role}`,
     description: siteConfig.description,
+    images: [`${siteConfig.url}/images/PriyankGupta.png`],
   },
   robots: {
     index: true,

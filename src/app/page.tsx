@@ -14,7 +14,7 @@ import { createMetadata } from '@/lib/seo';
 import { siteConfig } from '@/content/site';
 
 export const metadata = createMetadata({
-  title: 'Priyank Gupta - Senior Solution Architect',
+  title: 'Dr. Priyank Gupta - Senior Solution Architect',
   description: siteConfig.description,
   path: '/',
 });
@@ -29,13 +29,13 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="02 / Selected work"
             title="Engineering ideas into impact."
-            description="A selection of enterprise, web and automation project areas. Public details are subject to owner approval."
+            description="A selection of enterprise applications, AI-driven systems, and scalable digital products built across architecture, engineering, and delivery leadership."
           />
         </Reveal>
         <div className="selected-work-list mt-9 grid gap-5">
           {projects
             .filter((project) => project.featured)
-            .slice(0, 3)
+            .slice(0, 4)
             .map((project) => (
               <Reveal key={project.id} className="h-full">
                 <ProjectCard project={project} featured />

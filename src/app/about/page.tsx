@@ -23,9 +23,9 @@ export default function AboutPage() {
   return (
     <>
       <PageHeader
-        eyebrow="About Priyank"
-        title="Business goals. Practical technology."
-        description={siteConfig.headline}
+        eyebrow="About Dr. Priyank"
+        title="Business clarity. Technical execution."
+        description="Technology leader, solution architect, and engineer focused on building practical systems that work in real business environments."
       />
       <Section>
         <h2 className="sr-only">Professional introduction</h2>
@@ -33,7 +33,7 @@ export default function AboutPage() {
           <div className="mx-auto w-full max-w-[340px] px-5 pt-4 lg:sticky lg:top-28">
             <Portrait />
             <p className="mt-6 text-center text-lg font-semibold text-white">
-              Priyank Gupta
+              Dr. Priyank Gupta
             </p>
             <p className="mt-1 text-center text-sm text-aqua-300">
               Architect / Trainer / Technology Mentor
@@ -53,7 +53,7 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
-      <Section className="border-y border-white/10 bg-ink-900">
+      <Section id="experience-journey" className="border-y border-white/10 bg-ink-900">
         <SectionHeading
           eyebrow="Experience, in perspective"
           title="A career built in chapters."
@@ -74,6 +74,7 @@ export default function AboutPage() {
                     {role.designation}
                   </h3>
                   <p className="mt-3 text-lg text-slate-400">{role.company}</p>
+                  <p className="mt-2 text-sm text-slate-300">{role.location}</p>
                 </article>
               </TimelineItem>
             ))}
@@ -87,8 +88,8 @@ export default function AboutPage() {
                 <p className="mt-3 text-lg text-slate-400">{category.summary}</p>
               </Card>
             ))}
-            <ButtonLink href="/experience" variant="outline">
-              Explore the full journey <ArrowUpRight size={17} aria-hidden="true" />
+            <ButtonLink href="#experience-journey" variant="outline">
+              View the journey <ArrowUpRight size={17} aria-hidden="true" />
             </ButtonLink>
           </div>
         </div>

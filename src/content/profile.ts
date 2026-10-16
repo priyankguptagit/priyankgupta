@@ -1,10 +1,9 @@
 import type { Stat } from '@/types';
 
 export const professionalSummary: readonly string[] = [
-  'Priyank Gupta is a Senior Solution Architect and full-stack technology professional with 14+ years of IT experience across enterprise applications, modern web development, cloud, DevOps, testing and applied AI.',
-  'His approach connects business goals to business capabilities: understand the problem, make constraints explicit, and design practical technical solutions that teams can build and maintain.',
-  'His technical focus includes React, Next.js, TypeScript, Node.js, Express.js, NestJS, MongoDB, AWS and engineering quality. He values clear communication, collaborative decisions and continuous learning.',
-  'He shares practical knowledge through free weekend webinars, seminars, workshops, technical training and mentoring, subject to availability. School students, college students, professionals and other interested people are welcome.',
+  'Dr. Priyank Gupta is an Enterprise Architecture professional with 12+ years of IT experience, specializing in scalable web applications, full-stack engineering, enterprise architecture, and AI-driven systems.',
+  'His experience spans modern JavaScript and TypeScript ecosystems, including React, Next.js, Node.js, and MERN Stack, alongside neural-network-based models and predictive analytics.',
+  'He focuses on translating business requirements into scalable technology solutions, integrating intelligent capabilities into enterprise applications, and building secure, maintainable, high-performance software systems.',
 ];
 
 export const positioningPillars = [
@@ -58,12 +57,12 @@ export const credibilityStats: readonly Stat[] = [
 ];
 
 export const workingPrinciples = [
-  'Design for the team that has to maintain it, not for the slide that presents it.',
-  'Prefer boring, well-understood technology at the core and keep experimentation at the edges.',
-  'Make integration contracts explicit; most enterprise pain lives between systems, not inside them.',
-  'Security and accessibility are design inputs, not a hardening phase at the end.',
-  'Write the decision down. An architecture decision record outlives every meeting.',
-  'Teach continuously — a design only scales when other people understand it.',
+  'Design for the teams that have to maintain the system, not just the stakeholders who approve the idea.',
+  'Prefer proven technology at the core, and keep experimentation at the edges where it can be tested safely.',
+  'Make integration boundaries explicit; most enterprise friction shows up between systems, not inside a single codebase.',
+  'Treat security, quality, and accessibility as design requirements from the start, not as a final cleanup step.',
+  'Document decisions well enough that they outlast the meetings that created them.',
+  'Learn in public and teach by doing — the best technical ideas become useful when others can apply them.',
 ] as const;
 
 export const careerNarrative = [

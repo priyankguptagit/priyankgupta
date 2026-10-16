@@ -53,19 +53,23 @@ export function ProjectCard({
       <div className="project-copy min-w-0">
         <Badge>{project.category}</Badge>
         <h3 className="mt-4 text-xl font-semibold text-white">{project.title}</h3>
-        <p className="mt-3 leading-relaxed">{project.summary}</p>
+        <p className="mt-3 leading-relaxed">{project.summary ?? project.overview}</p>
         {project.visibility === 'review' && (
           <p className="mt-3 text-sm text-slate-500">
             Public description subject to owner approval.
           </p>
         )}
-        {(project.role || project.period) && (
+        {(project.role || project.startDate || project.endDate) && (
           <details className="mt-4 border-t border-white/10 pt-3">
             <summary className="min-h-11 py-2 text-sm font-medium text-aqua-300">
               Project details
             </summary>
             {project.role && <p className="mt-2 text-sm">Role: {project.role}</p>}
-            {project.period && <p className="text-sm">Period: {project.period}</p>}
+            {(project.startDate || project.endDate) && (
+              <p className="text-sm">
+                Period: {project.startDate || 'Start'} – {project.endDate || 'Present'}
+              </p>
+            )}
           </details>
         )}
         <ul className="mt-4 flex flex-wrap gap-2">
@@ -75,15 +79,15 @@ export function ProjectCard({
             </li>
           ))}
         </ul>
-        {project.highlights.length > 0 && (
+        {(project.highlights ?? []).length > 0 && (
           <ul className="mt-4 list-disc space-y-2 pl-5">
-            {project.highlights.map((item) => (
+            {(project.highlights ?? []).map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
         )}
-        {project.visibility === 'approved' && project.link?.startsWith('https://') && (
-          <ButtonLink href={project.link} external variant="secondary">
+        {project.visibility === 'approved' && (project.link ?? project.publicUrl)?.startsWith('https://') && (
+          <ButtonLink href={project.link ?? project.publicUrl ?? '#'} external variant="secondary">
             View {project.title}
           </ButtonLink>
         )}

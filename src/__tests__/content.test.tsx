@@ -28,7 +28,7 @@ it('keeps learning options aligned with the inquiry contract and dedicated skill
 it('renders the owner identity and requested experience wording', () => {
   render(<Hero />);
   expect(
-    screen.getByRole('heading', { level: 1, name: 'Priyank Gupta' })
+    screen.getByRole('heading', { level: 1, name: 'Dr. Priyank Gupta' })
   ).toBeInTheDocument();
   expect(
     screen.getByText(/14\+ years of experience delivering scalable enterprise solutions/)
@@ -41,7 +41,7 @@ it('renders the owner identity and requested experience wording', () => {
     'href',
     '/contact?category=Workshop%20Request'
   );
-  expect(screen.getByRole('img', { name: /Priyank Gupta/ })).toHaveAttribute(
+  expect(screen.getByRole('img', { name: /Dr\. Priyank Gupta/ })).toHaveAttribute(
     'src',
     expect.stringContaining('PriyankGupta')
   );
@@ -55,12 +55,15 @@ it('does not publish private contact information or unapproved links', () => {
   expect(publishedArticles).toHaveLength(0);
   expect(publicAchievements).toHaveLength(0);
   expect(education.map((item) => item.shortDegree)).toEqual([
+    'Ph.D.',
     'M.Phil.',
     'M.Sc.',
     'B.Sc.',
   ]);
   expect(experiences.filter((item) => item.currentlyWorking)).toHaveLength(1);
-  expect(experiences.find((item) => item.currentlyWorking)?.company).toMatch(/withheld/);
+  expect(experiences.find((item) => item.currentlyWorking)?.company).toBe(
+    'Bayer Crop Science Ltd.'
+  );
 });
 it('renders safe project cards and approval status', () => {
   const project = projects[0];

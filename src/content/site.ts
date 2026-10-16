@@ -5,18 +5,18 @@ const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 export const siteConfig = {
   domain: new URL(rawSiteUrl).hostname,
   url: new URL(rawSiteUrl).origin,
-  name: 'Priyank Gupta',
+  name: 'Dr. Priyank Gupta',
   /** Flip NEXT_PUBLIC_USE_DOCTOR_TITLE once the Ph.D. record is confirmed. */
-  useDoctorTitle: false,
-  role: 'Software Architect | Technology Leader | Engineering Problem Solver',
+  useDoctorTitle: true,
+  role: 'Software Architect & Technology Leader',
   headline:
-    'Software Architect | Technology Leader | Engineering Problem Solver',
+    'Building practical software systems that scale.',
   tagline:
-    'Building scalable software solutions, designing reliable architectures, and sharing practical engineering knowledge.',
+    'I design dependable digital products, simplify complex systems, and turn business needs into working software.',
   altTagline:
     'Practical architecture. Maintainable software. Shared knowledge.',
   description:
-    'Software architect and technology leader focused on scalable systems, modern application engineering, architecture strategy, and practical knowledge sharing.',
+    'Dr. Priyank Gupta is an Enterprise Architecture professional focused on scalable web systems, full-stack engineering, AI-driven innovation, and practical digital transformation.',
   experience: '14+ years of IT experience',
   location: '',
   shortLocation: 'Online and offline, subject to availability',
@@ -46,10 +46,9 @@ export const profilePhoto = {
 export const primaryNav: readonly NavItem[] = [
   { label: 'Home', href: '/', description: 'Overview and highlights' },
   { label: 'About', href: '/about', description: 'Professional story and principles' },
-  { label: 'Experience', href: '/experience', description: 'Career timeline' },
+  { label: 'Publications', href: '/publications', description: 'Published papers and research articles' },
   { label: 'Projects', href: '/projects' },
   { label: 'Expertise', href: '/expertise' },
-  { label: 'Writing', href: '/writing' },
   { label: 'Contact', href: '/contact', description: 'Get in touch' },
 ] as const;
 

@@ -173,6 +173,12 @@ main :is(.section-content, .page-header) p { max-width: 70ch; }
 
 .premium-card { background: var(--surface-card); box-shadow: var(--card-shadow), inset 0 1px 0 #ffffff08; }
 .premium-card:hover, .premium-card:focus-within { box-shadow: var(--card-shadow-hover); }
+.project-modal-scroll { scrollbar-width: thin; scrollbar-color: #334155 transparent; }
+.project-modal-scroll::-webkit-scrollbar { width: 8px; }
+.project-modal-scroll::-webkit-scrollbar-track { background: transparent; margin-block: 12px; }
+.project-modal-scroll::-webkit-scrollbar-thumb { border: 2px solid transparent; border-radius: 999px; background: #334155; background-clip: padding-box; }
+.project-modal-scroll::-webkit-scrollbar-thumb:hover { background: #22d3ee; background-clip: padding-box; }
+.project-modal-content :is(p, li) { text-align: justify; }
 .action-button { position: relative; isolation: isolate; overflow: hidden; }
 .action-button::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(circle at center, #ffffff25, transparent 65%); opacity: 0; transform: scale(.25); transition: transform .5s, opacity .4s; }
 .action-button:active::after { opacity: 1; transform: scale(2); }

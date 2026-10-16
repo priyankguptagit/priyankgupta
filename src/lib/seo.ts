@@ -27,11 +27,20 @@ export function createMetadata({
       description,
       siteName: siteConfig.name,
       locale: siteConfig.locale,
+      images: [
+        {
+          url: `${siteConfig.url}/images/PriyankGupta.png`,
+          width: 181,
+          height: 236,
+          alt: `${siteConfig.name} — ${siteConfig.role}`,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${title} | ${siteConfig.name}`,
       description,
+      images: [`${siteConfig.url}/images/PriyankGupta.png`],
     },
   };
 }

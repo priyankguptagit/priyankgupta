@@ -108,17 +108,26 @@ export interface SpeakingFormat {
 
 export interface Project {
   readonly id: string;
+  readonly slug: string;
   readonly title: string;
-  readonly category: string;
-  readonly summary: string;
-  readonly highlights: readonly string[];
-  readonly technologies: readonly string[];
-  readonly link?: Editable;
-  readonly confidential: boolean;
-  readonly slug?: string;
+  readonly client?: string;
   readonly role?: string;
-  readonly period?: string;
+  readonly startDate?: string;
+  readonly endDate?: string;
+  readonly location?: string;
+  readonly overview: string;
+  readonly responsibilities: readonly string[];
+  readonly technologies: readonly string[];
+  readonly categories: readonly string[];
+  readonly category: string;
+  readonly summary?: string;
+  readonly highlights?: readonly string[];
+  readonly link?: Editable;
+  readonly publicUrl?: string | null;
+  readonly source?: string;
+  readonly confidential: boolean;
   readonly featured?: boolean;
+  readonly sortOrder?: number;
   readonly visibility?: 'approved' | 'review';
   readonly image?: { readonly src: string; readonly alt: string };
 }
