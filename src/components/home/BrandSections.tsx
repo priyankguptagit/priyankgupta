@@ -20,6 +20,7 @@ import { SpeakerSpotlight } from './SpeakerSpotlight';
 import { projects } from '@/content/projects';
 import { topicNames } from '@/content/session-topics';
 import { expertiseCategories } from '@/content/expertise';
+import { researchWorks } from '@/content/research';
 
 const innovationAreas = [
   {
@@ -47,9 +48,9 @@ const innovationAreas = [
     href: '/about#experience-journey',
   },
   {
-    title: 'Architecture Consulting',
+    title: 'Architecture Practice',
     icon: Network,
-    text: 'Discussing system design, technical trade-offs and the path from intent to implementation.',
+    text: 'Exploring system design, technical trade-offs and the path from intent to implementation.',
     href: '/contact',
   },
 ];
@@ -78,6 +79,49 @@ export function ProfileBand() {
             </div>
           </Reveal>
         ))}
+      </div>
+    </Section>
+  );
+}
+
+export function BrandIdentityCards() {
+  return (
+    <Section width="wide" className="border-b border-white/10">
+      <div className="grid gap-5 lg:grid-cols-2">
+        <article className="flex h-full flex-col rounded-2xl border border-white/10 bg-ink-900/65 p-6 sm:p-8">
+          <p className="font-mono text-xs tracking-[0.16em] text-aqua-300">
+            PROFESSIONAL PROFILE
+          </p>
+          <h2 className="mt-4 text-2xl font-semibold text-white">
+            My Professional Journey
+          </h2>
+          <p className="mt-3 flex-1 leading-7 text-slate-300">
+            Explore my technical interests, projects, research, professional experience,
+            and approach to solving real-world problems through technology.
+          </p>
+          <ButtonLink href="/about" variant="outline" className="mt-6 w-fit">
+            Explore My Profile <ArrowUpRight size={16} aria-hidden="true" />
+          </ButtonLink>
+        </article>
+        <article className="flex h-full flex-col rounded-2xl border border-aqua-300/25 bg-aqua-300/[0.04] p-6 sm:p-8">
+          <p className="font-mono text-xs tracking-[0.16em] text-emerald-300">
+            KNOWLEDGE SHARING
+          </p>
+          <h2 className="mt-4 text-2xl font-semibold text-white">
+            Knowledge Is Better When Shared
+          </h2>
+          <p className="mt-3 flex-1 leading-7 text-slate-300">
+            I welcome opportunities to share technical knowledge through free seminars,
+            webinars, workshops, guest lectures, and training sessions for students,
+            professionals, and interested organizations.
+          </p>
+          <ButtonLink
+            href="/contact?category=Seminar%20Request"
+            className="mt-6 w-fit"
+          >
+            Invite Me for a Session <ArrowUpRight size={16} aria-hidden="true" />
+          </ButtonLink>
+        </article>
       </div>
     </Section>
   );
@@ -149,25 +193,25 @@ const workshopAudiences = [
     title: 'School Students',
     icon: School,
     text: 'Technology awareness, digital foundations and a first step into coding.',
-    topic: 'Technology for school students',
+    topic: 'Technology foundations for school students',
   },
   {
     title: 'College Students',
     icon: GraduationCap,
     text: 'Connect classroom concepts with real-world development and career direction.',
-    topic: 'Technology for college students',
+    topic: 'Introduction to web development',
   },
   {
     title: 'Working Professionals',
     icon: BriefcaseBusiness,
     text: 'Deepen engineering practice with architecture, modern stacks and AI awareness.',
-    topic: 'Technology for working professionals',
+    topic: 'Web application architecture and scalability',
   },
   {
-    title: 'Corporate Teams',
+    title: 'Organizations',
     icon: Network,
-    text: 'Start a conversation about shared engineering practices and technology upskilling.',
-    topic: 'Enterprise application architecture',
+    text: 'Discuss a free knowledge-sharing session on relevant engineering topics, subject to availability.',
+    topic: 'Solution architecture fundamentals',
   },
 ];
 
@@ -209,7 +253,7 @@ export function WorkshopSection() {
                   {audience.text}
                 </p>
                 <Link
-                  href={`/contact?category=Workshop%20Request`}
+                  href={`/contact?category=Workshop%20Request&eventType=Workshop&topic=${encodeURIComponent(audience.topic)}`}
                   className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-aqua-300"
                 >
                   Discuss a workshop <ArrowUpRight size={15} aria-hidden="true" />
@@ -228,7 +272,7 @@ export function WorkshopSection() {
           <Mic2 size={15} aria-hidden="true" /> Seminars
         </span>
         <span className="flex items-center gap-2">
-          <GraduationCap size={15} aria-hidden="true" /> Training Programs
+          <GraduationCap size={15} aria-hidden="true" /> Technical Sessions
         </span>
         <span className="flex items-center gap-2">
           <BrainCircuit size={15} aria-hidden="true" /> Technology Sessions
@@ -243,6 +287,43 @@ export function WorkshopSection() {
           All workshop categories
         </Link>
       </div>
+    </Section>
+  );
+}
+
+export function ResearchPreview() {
+  return (
+    <Section width="wide" className="border-t border-white/10 bg-ink-900/45">
+      <SectionHeading
+        eyebrow="Research & publications"
+        title="Research-informed thinking."
+        description="Selected publications exploring machine learning, feature selection, and predictive modeling."
+      />
+      <div className="mt-7 grid gap-4 lg:grid-cols-3">
+        {researchWorks.slice(0, 3).map((paper) => (
+          <article
+            key={paper.id}
+            className="flex h-full flex-col rounded-xl border border-white/10 bg-ink-950/60 p-5"
+          >
+            <p className="font-mono text-xs text-aqua-300">
+              {paper.type} <span aria-hidden="true">/</span> {paper.year}
+            </p>
+            <h3 className="mt-3 flex-1 text-lg font-semibold leading-snug text-white">
+              {paper.title}
+            </h3>
+            <p className="mt-3 text-sm text-slate-400">{paper.publisher}</p>
+            <details className="mt-4 border-t border-white/10 pt-3">
+              <summary className="min-h-11 cursor-pointer py-2 text-sm font-medium text-aqua-300">
+                Abstract
+              </summary>
+              <p className="pb-3 text-sm leading-6 text-slate-300">{paper.abstract}</p>
+            </details>
+          </article>
+        ))}
+      </div>
+      <ButtonLink href="/publications" variant="outline" className="mt-6">
+        Explore Research & Publications <ArrowUpRight size={16} aria-hidden="true" />
+      </ButtonLink>
     </Section>
   );
 }

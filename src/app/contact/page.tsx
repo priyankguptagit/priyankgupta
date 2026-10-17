@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { Portrait } from '@/components/visuals/Portrait';
 export const metadata = createMetadata({
-  title: 'Contact and Session Requests',
+  title: 'Invite Me for a Free Session',
   description:
     'Professional inquiries, free weekend learning sessions, mentoring and collaboration requests.',
   path: '/contact',
@@ -21,15 +21,22 @@ export const metadata = createMetadata({
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string | string[] }>;
+  searchParams: Promise<{
+    category?: string | string[];
+    topic?: string | string[];
+    eventType?: string | string[];
+  }>;
 }) {
   const query = await searchParams;
+  const category = typeof query.category === 'string' ? query.category : undefined;
+  const topic = typeof query.topic === 'string' ? query.topic : undefined;
+  const eventType = typeof query.eventType === 'string' ? query.eventType : undefined;
   return (
     <>
       <PageHeader
-        eyebrow="Professional conversations"
-        title="Start a conversation."
-        description="Share a professional question or propose a learning session. Requests are reviewed based on availability, and confirmation is not automatic."
+        eyebrow="Knowledge sharing · Professional conversations"
+        title="Let’s make knowledge sharing happen."
+        description="Are you a school, college, university, professional community, or organization interested in a free technical learning session? Share details about your audience and preferred topic, and I will review the request."
       />
       <Section width="wide" className="contact-page-band">
         <div className="grid items-start gap-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-12">
@@ -46,9 +53,10 @@ export default async function ContactPage({
               </div>
             </div>
             <ContactForm
-              initialCategory={
-                typeof query.category === 'string' ? query.category : undefined
-              }
+              key={`${category ?? ''}:${topic ?? ''}:${eventType ?? ''}`}
+              initialCategory={category}
+              initialTopic={topic}
+              initialEventType={eventType}
             />
           </div>
           <aside className="lg:sticky lg:top-28 lg:col-start-1 lg:row-start-1">

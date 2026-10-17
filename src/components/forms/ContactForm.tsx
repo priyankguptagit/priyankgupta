@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { Send, LoaderCircle } from 'lucide-react';
 import {
   categories,
+  eventTypes,
   inquirySchema,
   isEventCategory,
+  requiresOrganization,
   validationErrors,
   type FieldError,
 } from '@/lib/inquiry-contract';
@@ -14,21 +16,34 @@ import { Button } from '@/components/ui/Button';
 import { Checkbox, Field, FormStatus, Honeypot, controlClasses } from './Field';
 import { inquiryFields, type InquiryField } from '@/features/contact/fields';
 import { submitInquiry } from '@/lib/apiClient';
+import { topicNames } from '@/content/session-topics';
 
-function initialValues(category: string): Record<string, string> {
+function initialValues(
+  category: string,
+  topic: string,
+  eventType: string
+): Record<string, string> {
   return {
     ...Object.fromEntries(inquiryFields.map((field) => [field.name, ''])),
     category: categories.some((value) => value === category) ? category : categories[0],
+    proposedTopic: topic.slice(0, 200),
+    eventType: eventTypes.some((value) => value === eventType) ? eventType : '',
     budgetType: 'Free Session',
   };
 }
 
 export function ContactForm({
   initialCategory = categories[0],
+  initialTopic = '',
+  initialEventType = '',
 }: {
   initialCategory?: string;
+  initialTopic?: string;
+  initialEventType?: string;
 }) {
-  const [values, setValues] = useState(() => initialValues(initialCategory));
+  const [values, setValues] = useState(() =>
+    initialValues(initialCategory, initialTopic, initialEventType)
+  );
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState('');
   const [errors, setErrors] = useState<FieldError[]>([]);
@@ -39,13 +54,24 @@ export function ContactForm({
   const summary = useRef<HTMLDivElement>(null);
   const form = useRef<HTMLFormElement>(null);
   const eventRequest = isEventCategory(values.category || categories[0]);
+  const locationRequired = ['Offline', 'Hybrid'].includes(values.preferredMode || '');
+  const inPersonRequest = ['Offline', 'Hybrid', 'Either'].includes(
+    values.preferredMode || ''
+  );
   const visibleFields = inquiryFields.filter(
     (field) =>
       (!field.eventOnly || eventRequest) &&
+      (!field.generalOnly || !eventRequest) &&
       (field.name !== 'otherAudienceDescription' ||
         values.audienceCategory === 'Other') &&
+      (field.name !== 'participantAgeGroup' ||
+        ['School Students', 'College Students', 'University Students'].includes(
+          values.audienceCategory || ''
+        )) &&
       (field.name !== 'venueAvailable' ||
-        ['Offline', 'Hybrid', 'Either'].includes(values.preferredMode || ''))
+        ['Offline', 'Hybrid', 'Either'].includes(values.preferredMode || '')) &&
+      (!['city', 'state', 'country', 'technicalFacilities'].includes(field.name) ||
+        inPersonRequest)
   );
 
   useEffect(() => {
@@ -86,7 +112,7 @@ export function ContactForm({
       setStatus(result.ok ? 'success' : 'error');
       setMessage(result.message);
       if (result.ok || result.recordSubmitted) {
-        setValues(initialValues(initialCategory));
+        setValues(initialValues(initialCategory, initialTopic, initialEventType));
         setConsent(false);
         setWebsite('');
       } else setErrors(result.errors || []);
@@ -152,6 +178,15 @@ export function ContactForm({
             <InquiryControl
               field={field}
               value={values[field.name] || ''}
+              required={
+                field.required ||
+                (field.name === 'organization' &&
+                  requiresOrganization(
+                    values.category || categories[0],
+                    values.audienceCategory || ''
+                  )) ||
+                (['city', 'country'].includes(field.name) && locationRequired)
+              }
               error={errors.find((error) => error.field === field.name)?.message}
               onChange={(value) =>
                 setValues((current) => ({ ...current, [field.name]: value }))
@@ -162,10 +197,9 @@ export function ContactForm({
       </fieldset>
       {eventRequest && (
         <p className="text-sm">
-          Free knowledge sharing is the primary purpose. Dates, format, audience and
-          offline arrangements require confirmation. Budget selection creates no
-          commitment. Dates must be today or later (UTC). Please include a time zone in
-          the message for online sessions.
+          Sessions are free and subject to confirmation. Dates must be today or later
+          (UTC). In-person or hybrid requests need a city and country so feasibility can
+          be considered. Please include a time zone in the message for online sessions.
         </p>
       )}
       <fieldset disabled={submitting} className="min-w-0 border-t border-white/10 pt-6">
@@ -204,18 +238,21 @@ export function ContactForm({
 function InquiryControl({
   field,
   value,
+  required = field.required,
   error,
   onChange,
 }: {
   field: InquiryField;
   value: string;
+  required?: boolean;
   error?: string;
   onChange: (value: string) => void;
 }) {
   return (
     <Field
       label={field.label}
-      required={field.required}
+      required={required}
+      hint={field.hint}
       error={error}
       floating={
         !field.options &&
@@ -227,7 +264,7 @@ function InquiryControl({
         const common = {
           ...props,
           name: field.name,
-          required: field.required,
+          required,
           value,
           className: controlClasses,
           onChange: (
@@ -250,16 +287,26 @@ function InquiryControl({
         if (field.type === 'textarea')
           return <textarea {...common} rows={5} maxLength={field.maxLength} />;
         return (
-          <input
-            {...common}
-            type={field.type || 'text'}
-            placeholder=" "
-            autoComplete={field.autoComplete}
-            maxLength={field.maxLength}
-            min={field.type === 'number' ? 1 : undefined}
-            max={field.type === 'number' ? 100000 : undefined}
-            step={field.type === 'number' ? 1 : undefined}
-          />
+          <>
+            <input
+              {...common}
+              type={field.type || 'text'}
+              placeholder=" "
+              autoComplete={field.autoComplete}
+              maxLength={field.maxLength}
+              list={field.name === 'proposedTopic' ? 'session-topic-options' : undefined}
+              min={field.type === 'number' ? 1 : undefined}
+              max={field.type === 'number' ? 100000 : undefined}
+              step={field.type === 'number' ? 1 : undefined}
+            />
+            {field.name === 'proposedTopic' && (
+              <datalist id="session-topic-options">
+                {topicNames.map((topic) => (
+                  <option key={topic} value={topic} />
+                ))}
+              </datalist>
+            )}
+          </>
         );
       }}
     </Field>

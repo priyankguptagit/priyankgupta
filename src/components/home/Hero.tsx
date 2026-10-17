@@ -35,12 +35,18 @@ export function Hero() {
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <ButtonLink href="/projects">
-              Explore Projects <ArrowUpRight size={17} aria-hidden="true" />
+              Explore My Work <ArrowUpRight size={17} aria-hidden="true" />
+            </ButtonLink>
+            <ButtonLink href="/knowledge-sharing" variant="secondary">
+              Explore Learning Sessions <ArrowUpRight size={17} aria-hidden="true" />
+            </ButtonLink>
+            <ButtonLink href="/contact?category=Seminar%20Request" variant="outline">
+              Invite Me for a Free Session <ArrowUpRight size={17} aria-hidden="true" />
             </ButtonLink>
             <ButtonLink
               href="/Priyank-Gupta-Resume-2026.pdf"
               download="Priyank-Gupta-Resume-2026.pdf"
-              variant="outline"
+              variant="ghost"
             >
               <Download size={17} aria-hidden="true" />
               Download Resume

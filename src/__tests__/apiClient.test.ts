@@ -1,6 +1,6 @@
 import { submitInquiry } from '@/lib/apiClient';
 import { inquirySchema } from '@/lib/inquiry-contract';
-const input = inquirySchema.parse({ fullName: 'Example Person', email: 'person@example.org', category: 'General Professional Query', message: 'A practical question about application architecture.', consent: true });
+const input = inquirySchema.parse({ fullName: 'Example Person', email: 'person@example.org', category: 'General Professional Query', subject: 'Architecture question', message: 'A practical question about application architecture.', consent: true });
 afterEach(() => { jest.useRealTimers(); jest.restoreAllMocks(); });
 it('does not silently accept malformed success responses', async () => {
   global.fetch = jest.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({ success: true }) });
@@ -16,7 +16,9 @@ it('shows the requested confirmation for a successful submission', async () => {
       requestId: '123e4567-e89b-42d3-a456-426614174000',
     }),
   });
-  expect((await submitInquiry(input)).message).toBe('Record submitted');
+  expect((await submitInquiry(input)).message).toContain(
+    'Your request has been received.'
+  );
 });
 it('explains when a record was saved but its notification email failed', async () => {
   global.fetch = jest.fn().mockResolvedValue({
@@ -31,7 +33,7 @@ it('explains when a record was saved but its notification email failed', async (
   const result = await submitInquiry(input);
   expect(result.ok).toBe(false);
   expect(result.recordSubmitted).toBe(true);
-  expect(result.message).toContain('Record submitted');
+  expect(result.message).toContain('request was received and saved');
   expect(result.message).toContain('Please do not submit it again');
 });
 it('handles invalid JSON safely', async () => {

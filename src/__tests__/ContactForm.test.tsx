@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ContactForm } from '@/components/forms/ContactForm';
+import { topicNames } from '@/content/session-topics';
 
 const reference = '123e4567-e89b-42d3-a456-426614174000';
 const success = { success: true, data: { referenceId: reference }, requestId: reference };
@@ -14,8 +15,10 @@ function mockResponse(body: unknown = success, status = 201) {
 async function fillRequired(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText(/^Full Name/), 'Example Person');
   await user.type(screen.getByLabelText(/^Email Address/), 'person@example.org');
+  const subject = screen.queryByLabelText(/^Subject/);
+  if (subject) await user.type(subject, 'Software architecture question');
   await user.type(
-    screen.getByLabelText(/^Message or Additional Details/),
+    screen.getByLabelText(/^Audience, Learning Objectives, and Additional Details/),
     'Please discuss a practical software architecture question.'
   );
   await user.click(screen.getByRole('checkbox'));
@@ -39,13 +42,30 @@ it('validates required fields, focuses the first invalid control and links error
   );
   expect(screen.getByLabelText(/^Full Name/)).toHaveFocus();
 });
+it('requires a subject for general enquiries', async () => {
+  const user = userEvent.setup();
+  render(<ContactForm />);
+  await user.type(screen.getByLabelText(/^Full Name/), 'Example Person');
+  await user.type(screen.getByLabelText(/^Email Address/), 'person@example.org');
+  await user.type(
+    screen.getByLabelText(/^Audience, Learning Objectives, and Additional Details/),
+    'Please discuss a practical software architecture question.'
+  );
+  await user.click(screen.getByRole('checkbox'));
+  await user.click(screen.getByRole('button', { name: 'Send request' }));
+
+  expect(global.fetch).not.toHaveBeenCalled();
+  expect(screen.getByLabelText(/^Subject/)).toHaveAttribute('aria-invalid', 'true');
+});
 it('submits normalized data to the separate REST API and announces success', async () => {
   const user = userEvent.setup();
   render(<ContactForm />);
   await fillRequired(user);
   await user.click(screen.getByRole('button', { name: 'Send request' }));
   await waitFor(() =>
-    expect(screen.getByRole('status')).toHaveTextContent('Record submitted')
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Your request has been received.'
+    )
   );
   expect(global.fetch).toHaveBeenCalledWith(
     'http://localhost:5000/api/v1/inquiries',
@@ -67,7 +87,13 @@ it('requires conditional event/audience fields and supports offline requests', a
   );
   await user.selectOptions(screen.getByLabelText(/^Preferred Delivery Mode/), 'Offline');
   expect(screen.getByLabelText(/^Venue Availability/)).toBeInTheDocument();
-  fireEvent.change(screen.getByLabelText(/^Proposed Topic/), {
+  await user.type(
+    screen.getByLabelText(/^Organization Website/),
+    'https://college.example.edu'
+  );
+  await user.type(screen.getByLabelText(/^City/), 'Bengaluru');
+  await user.type(screen.getByLabelText(/^Country/), 'India');
+  fireEvent.change(screen.getByLabelText(/^Preferred Topic/), {
     target: { value: 'Next.js fundamentals' },
   });
   fireEvent.change(screen.getByLabelText(/^Expected Number of Participants/), {
@@ -75,15 +101,51 @@ it('requires conditional event/audience fields and supports offline requests', a
   });
   await user.click(screen.getByRole('button', { name: 'Send request' }));
   await waitFor(() =>
-    expect(screen.getByRole('status')).toHaveTextContent('Record submitted')
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Your request has been received.'
+    )
   );
   const fetchMock = global.fetch as jest.Mock;
   expect(JSON.parse(fetchMock.mock.calls[0]?.[1].body)).toMatchObject({
     audienceCategory: 'Other',
     expectedParticipants: 20,
     preferredMode: 'Offline',
+    organizationWebsite: 'https://college.example.edu',
     source: 'session-request',
   });
+});
+it('prefills topic and session format from a request-topic link', () => {
+  render(
+    <ContactForm
+      initialCategory="Webinar Request"
+      initialTopic="AI and machine-learning awareness"
+      initialEventType="Webinar"
+    />
+  );
+
+  expect(screen.getByLabelText(/^Query Category/)).toHaveValue('Webinar Request');
+  expect(screen.getByLabelText(/^Event Type/)).toHaveValue('Webinar');
+  expect(screen.getByLabelText(/^Preferred Topic/)).toHaveValue(
+    'AI and machine-learning awareness'
+  );
+  expect(document.querySelectorAll('#session-topic-options option')).toHaveLength(
+    topicNames.length
+  );
+});
+it('requires an institution for school requests', async () => {
+  const user = userEvent.setup();
+  render(<ContactForm initialCategory="Seminar Request" />);
+  await user.selectOptions(screen.getByLabelText(/^Event Type/), 'Seminar');
+  await user.selectOptions(screen.getByLabelText(/^Audience Category/), 'School Students');
+  expect(screen.getByLabelText(/^Organization or Institution/)).toBeRequired();
+  await fillRequired(user);
+  await user.type(screen.getByLabelText(/^Preferred Topic/), 'Technology foundations');
+  await user.click(screen.getByRole('button', { name: 'Send request' }));
+  expect(global.fetch).not.toHaveBeenCalled();
+  expect(screen.getByLabelText(/^Organization or Institution/)).toHaveAttribute(
+    'aria-invalid',
+    'true'
+  );
 });
 it('preserves input and maps safe backend field errors', async () => {
   mockResponse(
@@ -140,7 +202,9 @@ it('prevents duplicate submissions and exposes a loading state', async () => {
   expect(screen.getByRole('checkbox')).toBeDisabled();
   resolveRequest({ ok: true, status: 201, json: async () => success });
   await waitFor(() =>
-    expect(screen.getByRole('status')).toHaveTextContent('Record submitted')
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Your request has been received.'
+    )
   );
 });
 it('uses shared phone validation and preserves valid fields', async () => {

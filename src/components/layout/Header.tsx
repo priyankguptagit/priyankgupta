@@ -19,6 +19,10 @@ const featuredNav = [
   { label: 'Contact', href: '/contact' },
 ];
 const secondaryNav = [
+  { label: 'Knowledge Sharing', href: '/knowledge-sharing' },
+  { label: 'Learning Resources', href: '/resources' },
+  { label: 'Sessions', href: '/sessions' },
+  { label: 'Audiences', href: '/audiences' },
   { label: 'Achievements', href: '/achievements' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'Accessibility', href: '/accessibility' },
@@ -204,10 +208,10 @@ export function Header() {
           </div>
         </nav>
         <Link
-          href="/contact"
-          className="action-button hidden min-h-11 shrink-0 items-center justify-center rounded-md border border-white/20 bg-white/5 px-4 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-white/10 xl:inline-flex"
+          href="/contact?category=Seminar%20Request"
+          className="action-button hidden min-h-11 shrink-0 items-center justify-center rounded-md border border-white/20 bg-white/5 px-4 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-white/10 lg:inline-flex"
         >
-          Get in Touch
+          Invite Me
         </Link>
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
@@ -272,6 +276,15 @@ export function Header() {
                 </Link>
               </m.li>
             ))}
+            <li className="sm:col-span-2">
+              <Link
+                href="/contact?category=Seminar%20Request"
+                onClick={() => setOpen(false)}
+                className="mt-2 flex min-h-12 items-center justify-center rounded-md bg-aqua-400 px-4 font-semibold text-ink-950 transition-colors hover:bg-aqua-300"
+              >
+                Invite Me for a Free Session
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

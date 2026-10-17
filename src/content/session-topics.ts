@@ -1,29 +1,157 @@
-export { eventTypes } from '@/lib/inquiry-contract';
+import { eventTypes } from '@/lib/inquiry-contract';
 
-export const topicNames = [
-  'Modern web development', 'HTML and CSS fundamentals', 'JavaScript fundamentals',
-  'TypeScript fundamentals', 'React.js', 'Next.js', 'Node.js', 'Express.js',
-  'MERN stack', 'REST API design', 'MongoDB fundamentals', 'Full-stack application development',
-  'Enterprise application architecture', 'Solution architecture', 'Scalable frontend architecture',
-  'Scalable backend architecture', 'Clean code', 'Unit testing', 'Integration testing',
-  'Software quality', 'Accessibility', 'Secure application development', 'CI/CD fundamentals',
-  'Jenkins', 'Docker basics', 'AWS awareness', 'Git and version control',
-  'Software engineering best practices', 'AI awareness', 'Machine learning awareness',
-  'Neural-network awareness', 'Career guidance in technology', 'Technology for school students',
-  'Technology for college students', 'Technology for working professionals',
-  'Application modernization', 'Legacy-to-modern UI migration', 'Business-to-technology solution mapping',
+export { eventTypes };
+
+export const sessionTopics = [
+  {
+    id: 'technology-foundations-for-school-students',
+    title: 'Technology foundations for school students',
+    description:
+      'An age-aware introduction to digital literacy, logical thinking, and how software is built.',
+    audience: 'School students',
+    level: 'Introductory',
+    formats: ['Seminar', 'Webinar'],
+    duration: '30–60 minutes',
+  },
+  {
+    id: 'introduction-to-web-development',
+    title: 'Introduction to web development',
+    description:
+      'How HTML, CSS, and JavaScript work together to create interactive websites.',
+    audience: 'Beginners and college students',
+    level: 'Beginner',
+    formats: ['Seminar', 'Webinar', 'Workshop'],
+    duration: '45–90 minutes',
+  },
+  {
+    id: 'modern-react-and-typescript',
+    title: 'Modern React and TypeScript',
+    description:
+      'Component-based interfaces, typed application code, and practical frontend patterns.',
+    audience: 'College students and working professionals',
+    level: 'Intermediate',
+    formats: ['Seminar', 'Webinar', 'Workshop', 'Technical Training'],
+    duration: '60–90 minutes; workshops may run 1–3 hours',
+  },
+  {
+    id: 'full-stack-application-development',
+    title: 'Full-stack application development',
+    description:
+      'A practical overview of connecting a modern web interface to application services and data.',
+    audience: 'College students and working professionals',
+    level: 'Intermediate',
+    formats: ['Seminar', 'Webinar', 'Workshop', 'Technical Training'],
+    duration: '60–90 minutes; workshops may run 1–3 hours',
+  },
+  {
+    id: 'rest-api-design-and-integration',
+    title: 'REST API design and integration',
+    description:
+      'API contracts, request and response design, integration patterns, and maintainability.',
+    audience: 'College students and working professionals',
+    level: 'Intermediate',
+    formats: ['Seminar', 'Webinar', 'Workshop', 'Technical Training'],
+    duration: '45–90 minutes',
+  },
+  {
+    id: 'web-application-architecture',
+    title: 'Web application architecture and scalability',
+    description:
+      'Architecture decisions for maintainable web systems, with attention to trade-offs and scale.',
+    audience: 'Working professionals and advanced students',
+    level: 'Intermediate',
+    formats: ['Seminar', 'Webinar', 'Technical Training'],
+    duration: '45–90 minutes',
+  },
+  {
+    id: 'solution-architecture-fundamentals',
+    title: 'Solution architecture fundamentals',
+    description:
+      'Mapping business needs to technical choices, system boundaries, and delivery considerations.',
+    audience: 'Working professionals and advanced students',
+    level: 'Intermediate',
+    formats: ['Seminar', 'Webinar', 'Technical Training'],
+    duration: '45–90 minutes',
+  },
+  {
+    id: 'software-quality-testing-and-clean-code',
+    title: 'Software quality, testing, and clean code',
+    description:
+      'Foundations for readable code, repeatable testing, and improving software quality.',
+    audience: 'College students and working professionals',
+    level: 'Beginner to intermediate',
+    formats: ['Seminar', 'Webinar', 'Workshop'],
+    duration: '45–90 minutes',
+  },
+  {
+    id: 'git-and-version-control',
+    title: 'Git and version control workflows',
+    description:
+      'Core version-control concepts and collaborative development workflows.',
+    audience: 'Beginners and college students',
+    level: 'Beginner',
+    formats: ['Seminar', 'Webinar', 'Workshop'],
+    duration: '45–90 minutes',
+  },
+  {
+    id: 'ai-and-machine-learning-awareness',
+    title: 'AI and machine-learning awareness',
+    description:
+      'Introductory concepts, practical applications, responsible use, and common limitations.',
+    audience: 'Students and working professionals',
+    level: 'Introductory',
+    formats: ['Seminar', 'Webinar'],
+    duration: '30–60 minutes',
+  },
+  {
+    id: 'machine-learning-and-recurrent-neural-networks',
+    title: 'Machine learning and recurrent neural networks',
+    description:
+      'An introduction to sequence-based prediction and recurrent neural network research.',
+    audience: 'University students and working professionals',
+    level: 'Intermediate',
+    formats: ['Seminar', 'Webinar', 'Technical Training'],
+    duration: '60–90 minutes',
+  },
+  {
+    id: 'predictive-modeling-and-feature-selection',
+    title: 'Predictive modeling and feature selection',
+    description:
+      'Research-informed discussion of predictive models, feature selection, and evaluating results.',
+    audience: 'University students and working professionals',
+    level: 'Intermediate',
+    formats: ['Seminar', 'Webinar', 'Technical Training'],
+    duration: '60–90 minutes',
+  },
+  {
+    id: 'web-accessibility-fundamentals',
+    title: 'Web accessibility fundamentals',
+    description:
+      'Practical accessibility principles for making modern web interfaces more inclusive.',
+    audience: 'College students and working professionals',
+    level: 'Beginner',
+    formats: ['Seminar', 'Webinar', 'Workshop'],
+    duration: '45–90 minutes',
+  },
+  {
+    id: 'technology-career-and-project-guidance',
+    title: 'Technology career and project guidance',
+    description:
+      'Discussing learning paths, technical project planning, and building practical experience.',
+    audience: 'Students and early-career professionals',
+    level: 'Introductory',
+    formats: ['Seminar', 'Webinar', 'Question and Answer'],
+    duration: '30–60 minutes',
+  },
 ] as const;
 
-export const sessionTopics = topicNames.map((title, index) => ({
-  id: `topic-${index + 1}`, title, status: 'proposed' as const,
-  description: `A proposed educational session on ${title.toLowerCase()}. Scope and level are agreed with the organizer.`,
-}));
+export const topicNames = sessionTopics.map((topic) => topic.title);
 
 export const sessionConditions = [
-  'Primarily weekends, free of cost and subject to availability and explicit confirmation.',
-  'Topic, audience, format, dates, duration and facilities must be discussed before confirmation.',
-  'Offline sessions depend on location, travel feasibility, venue, equipment and organizer coordination.',
-  'Hybrid delivery is a future-ready option; feasibility must be confirmed.',
-  'Submitting a request or selecting a budget type creates no contractual or commercial commitment.',
+  'Free knowledge-sharing sessions are offered subject to availability, topic alignment, audience requirements, and mutual scheduling.',
+  'Submitting a request does not guarantee confirmation. The topic, audience level, format, dates, and duration are agreed in advance.',
+  'Online or in-person arrangements depend on feasibility and mutual agreement.',
+  'Travel, accommodation, venue, equipment, or other expenses are not automatically included and must be discussed and agreed beforehand.',
+  'Materials, recordings, certificates, and follow-up sessions are optional and must be confirmed separately.',
   'Sessions are educational and do not represent the views of any employer.',
 ] as const;

@@ -25,9 +25,8 @@ export default function PrivacyPage() {
               Name, email, message and consent are required. You may provide a phone
               number, organization, designation and event information, including audience
               category, participant count, general age group, experience level, dates,
-              time, duration, city, state, country, venue, facilities and budget
-              preference. Do not include individual student details or sensitive personal
-              information.
+              time, duration, city, state, country, venue, and available facilities. Do
+              not include individual student details or sensitive personal information.
             </p>
           </section>
           <section>

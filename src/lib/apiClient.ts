@@ -32,7 +32,7 @@ export async function submitInquiry(payload: InquiryInput): Promise<ApiResult> {
     return {
       ok: false,
       message: failure.success && failure.data.recordSubmitted
-        ? `Record submitted, but the notification email could not be sent. Please do not submit it again. Reference: ${failure.data.data?.referenceId ?? 'unavailable'}.`
+        ? `Your request was received and saved, but the notification email could not be sent. Please do not submit it again. Reference: ${failure.data.data?.referenceId ?? 'unavailable'}.`
         : response.status === 429 ? 'Too many requests. Please try again later.' : response.status === 400 ? 'Please correct the highlighted fields.' : 'We could not submit your request. Please try again later.',
       recordSubmitted: failure.success ? failure.data.recordSubmitted : undefined,
       requestId: failure.success ? failure.data.requestId : undefined,

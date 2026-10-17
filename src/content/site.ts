@@ -17,14 +17,13 @@ export const siteConfig = {
   /** Flip NEXT_PUBLIC_USE_DOCTOR_TITLE once the Ph.D. record is confirmed. */
   useDoctorTitle: true,
   role: 'Software Architect & Technology Leader',
-  headline:
-    'Building software that scales.',
+  headline: 'Exploring technology. Sharing knowledge. Enabling growth.',
   tagline:
-    'I turn complex business needs into dependable software through enterprise architecture, full-stack engineering, and applied AI.',
+    'I work across software architecture, engineering, AI and machine learning, and research. I also welcome opportunities to share practical technical knowledge through free learning sessions, subject to availability.',
   altTagline:
     'Practical architecture. Maintainable software. Shared knowledge.',
   description:
-    'Dr. Priyank Gupta is an Enterprise Architecture professional focused on scalable web systems, full-stack engineering, AI-driven innovation, and practical digital transformation.',
+    'Dr. Priyank Gupta is a Software Architect and Technology Leader exploring scalable systems, applied AI and machine learning, research, and free technical knowledge-sharing sessions.',
   experience: '14+ years of IT experience',
   location: '',
   shortLocation: 'Online and offline, subject to availability',
@@ -53,6 +52,8 @@ export const profilePhoto = {
 export const primaryNav: readonly NavItem[] = [
   { label: 'Home', href: '/', description: 'Overview and highlights' },
   { label: 'About', href: '/about', description: 'Professional story and principles' },
+  { label: 'Knowledge Sharing', href: '/knowledge-sharing', description: 'Free technical learning sessions' },
+  { label: 'Learning Resources', href: '/resources', description: 'Technical learning materials' },
   { label: 'Publications', href: '/publications', description: 'Published papers and research articles' },
   { label: 'Projects', href: '/projects' },
   { label: 'Expertise', href: '/expertise' },
@@ -60,6 +61,7 @@ export const primaryNav: readonly NavItem[] = [
 ] as const;
 
 export const footerNav: readonly NavItem[] = [
+  { label: 'Sessions', href: '/sessions' },
   { label: 'Achievements', href: '/achievements' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'Privacy', href: '/privacy' },

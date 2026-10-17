@@ -60,6 +60,13 @@ export function ExpertiseScreen() {
                 <ButtonLink href="/experience" variant="outline" size="md">
                   View My Experience
                 </ButtonLink>
+                <ButtonLink
+                  href="/contact?category=Seminar%20Request"
+                  variant="ghost"
+                  size="md"
+                >
+                  Invite Me for a Free Session
+                </ButtonLink>
               </div>
             </div>
           </div>

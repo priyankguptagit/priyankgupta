@@ -62,6 +62,16 @@ export const audienceCategories = [
   'Job Seekers',
   'Other',
 ] as const;
+export const institutionalAudienceCategories = [
+  'School Students',
+  'College Students',
+  'University Students',
+  'Teachers',
+  'Faculty Members',
+  'Educational Institutions',
+  'NGOs',
+  'Non-Profit Organizations',
+] as const;
 
 export const deliveryModes = ['Online', 'Offline', 'Hybrid', 'Either'] as const;
 export const budgetTypes = [
@@ -90,7 +100,7 @@ export const inquiryStatuses = [
 ] as const;
 
 export const successMessage =
-  'Record submitted';
+  'Thank you for your interest in organizing a learning session. Your request has been received. I will review the details and respond if the topic, schedule, and arrangements are feasible.';
 
 export function isEventCategory(category: string): boolean {
   return ![
@@ -99,6 +109,14 @@ export function isEventCategory(category: string): boolean {
     'Topic Suggestion',
     'Other',
   ].includes(category);
+}
+
+export function requiresOrganization(category: string, audience: string): boolean {
+  return (
+    isEventCategory(category) &&
+    (institutionalAudienceCategories.some((item) => item === audience) ||
+      ['Corporate Teams', 'Technology Communities'].includes(audience))
+  );
 }
 
 const safeText = (max: number, multiline = false) =>
@@ -154,7 +172,19 @@ export const inquirySchema = z
       )
       .optional(),
     organization: optionalText(160),
+    organizationWebsite: z
+      .string()
+      .trim()
+      .max(250, 'Use at most 250 characters.')
+      .refine(
+        (value) =>
+          value === '' ||
+          (/^https?:\/\//i.test(value) && z.string().url().safeParse(value).success),
+        'Enter a valid website URL starting with http:// or https://.'
+      )
+      .optional(),
     designation: optionalText(120),
+    subject: optionalText(160),
     category: z.enum(categories, {
       errorMap: () => ({ message: 'Select a query category.' }),
     }),
@@ -198,6 +228,13 @@ export const inquirySchema = z
   })
   .strict()
   .superRefine((input, context) => {
+    if (!isEventCategory(input.category) && !input.subject) {
+      context.addIssue({
+        code: 'custom',
+        path: ['subject'],
+        message: 'Enter a subject for your enquiry.',
+      });
+    }
     if (isEventCategory(input.category)) {
       const today = new Date().toISOString().slice(0, 10);
       for (const field of ['preferredDate', 'alternateDate'] as const) {
@@ -230,6 +267,35 @@ export const inquirySchema = z
         path: ['otherAudienceDescription'],
         message: 'Describe the audience.',
       });
+    }
+    if (
+      requiresOrganization(input.category, input.audienceCategory || '') &&
+      !input.organization
+    ) {
+      context.addIssue({
+        code: 'custom',
+        path: ['organization'],
+        message: 'Enter the organization or institution name.',
+      });
+    }
+    if (
+      isEventCategory(input.category) &&
+      ['Offline', 'Hybrid'].includes(input.preferredMode || '')
+    ) {
+      if (!input.city) {
+        context.addIssue({
+          code: 'custom',
+          path: ['city'],
+          message: 'Enter the city for an in-person session.',
+        });
+      }
+      if (!input.country) {
+        context.addIssue({
+          code: 'custom',
+          path: ['country'],
+          message: 'Enter the country for an in-person session.',
+        });
+      }
     }
   });
 

@@ -12,7 +12,7 @@ import { MotionProvider, PageTransition, ScrollProgress } from '@/components/ui/
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | ${siteConfig.role}`,
+    default: `${siteConfig.name} | Technology, AI/ML & Knowledge Sharing`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: 'profile',
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} | ${siteConfig.role}`,
+    title: `${siteConfig.name} | Technology, AI/ML & Knowledge Sharing`,
     description: siteConfig.description,
     locale: siteConfig.locale,
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: `${siteConfig.name} | ${siteConfig.role}`,
+    title: `${siteConfig.name} | Technology, AI/ML & Knowledge Sharing`,
     description: siteConfig.description,
     images: [`${siteConfig.url}/images/PriyankGupta.png`],
   },

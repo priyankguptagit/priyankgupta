@@ -14,6 +14,16 @@ it('marks the active page and exposes all required navigation', async () => {
   );
   expect(screen.queryByRole('link', { name: 'Education' })).not.toBeInTheDocument();
   expect(screen.queryByRole('link', { name: 'Resume' })).not.toBeInTheDocument();
+  expect(
+    screen.getByRole('link', { name: 'Learning Resources' })
+  ).toHaveAttribute('href', '/resources');
+  expect(
+    screen.getByRole('link', { name: 'Knowledge Sharing' })
+  ).toHaveAttribute('href', '/knowledge-sharing');
+  expect(screen.getByRole('link', { name: 'Invite Me' })).toHaveAttribute(
+    'href',
+    '/contact?category=Seminar%20Request'
+  );
 });
 it('toggles mobile navigation and returns focus on Escape', async () => {
   const user = userEvent.setup();
@@ -22,6 +32,9 @@ it('toggles mobile navigation and returns focus on Escape', async () => {
   await user.click(toggle);
   expect(toggle).toHaveAttribute('aria-expanded', 'true');
   expect(screen.getByRole('navigation', { name: 'Mobile primary' })).toBeInTheDocument();
+  expect(
+    screen.getByRole('link', { name: 'Invite Me for a Free Session' })
+  ).toHaveAttribute('href', '/contact?category=Seminar%20Request');
   await user.keyboard('{Escape}');
   expect(toggle).toHaveAttribute('aria-expanded', 'false');
   expect(toggle).toHaveFocus();

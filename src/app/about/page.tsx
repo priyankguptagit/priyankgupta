@@ -1,6 +1,5 @@
 import { PageHeader } from '@/components/layout/PageHeader';
 import { Section, SectionHeading } from '@/components/ui/Section';
-import { EducationList } from '@/components/ui/EducationList';
 import { professionalSummary, workingPrinciples, languages } from '@/content/profile';
 import { siteConfig } from '@/content/site';
 import { createMetadata } from '@/lib/seo';
@@ -108,10 +107,7 @@ export default function AboutPage() {
         </ul>
       </Section>
       <Section>
-        <SectionHeading title="Education and languages" />
-        <div className="mt-6">
-          <EducationList />
-        </div>
+        <SectionHeading title="Languages" />
         <p className="mt-6">Languages: {languages.join(', ')}</p>
         <p className="mt-8 border-t border-white/20 pt-6 text-sm">
           {siteConfig.disclaimer}

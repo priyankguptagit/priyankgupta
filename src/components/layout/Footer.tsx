@@ -17,7 +17,7 @@ export function Footer() {
               communities grow through practical learning.
             </p>
             <Link
-              href="/contact?category=Training%20Request"
+              href="/contact?category=Seminar%20Request"
               className="mt-4 inline-flex min-h-11 items-center font-semibold text-aqua-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua-300"
             >
               Request a Free Session

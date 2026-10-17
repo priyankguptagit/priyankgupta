@@ -33,22 +33,6 @@ export interface SocialLink {
   readonly handle: string;
 }
 
-export interface Education {
-  readonly id: string;
-  readonly degree: string;
-  readonly shortDegree: string;
-  readonly specialization: Editable;
-  readonly institution: Editable;
-  readonly location: Editable;
-  readonly startYear: Editable;
-  readonly endYear: Editable;
-  readonly researchArea: Editable;
-  readonly thesisTitle: Editable;
-  readonly achievements: readonly string[];
-  readonly description: Editable;
-  readonly order: number;
-}
-
 export interface ExperienceProject {
   readonly name: Editable;
   readonly summary: Editable;
