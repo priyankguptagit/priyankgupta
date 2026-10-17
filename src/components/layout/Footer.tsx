@@ -5,7 +5,7 @@ import { footerMap, footerNav, primaryNav, siteConfig, socialLinks } from '@/con
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-ink-950">
-      <div className="mx-auto max-w-[1200px] px-5 py-10 sm:px-8 sm:py-12">
+      <div className="mx-auto max-w-[1200px] px-5 py-10 sm:px-6 sm:py-12 lg:px-8 xl:px-12">
         <div className="grid gap-9 border-b border-white/10 pb-9 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:gap-12">
           <div>
             <p className="font-mono text-xs tracking-wide text-aqua-300">

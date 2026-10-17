@@ -3,6 +3,7 @@ import { ProjectCard, AudienceCard } from '@/components/ui/ContentCards';
 import { Hero } from '@/components/home/Hero';
 import SessionsPage from '@/app/sessions/page';
 import { siteConfig, socialLinks } from '@/content/site';
+import { createMetadata } from '@/lib/seo';
 import { projects } from '@/content/projects';
 import { audiences } from '@/content/audiences';
 import { publishedArticles } from '@/content/insights';
@@ -25,33 +26,51 @@ it('keeps learning options aligned with the inquiry contract and dedicated skill
   );
 });
 
-it('renders the owner identity and requested experience wording', () => {
+it('keeps route, Open Graph, and Twitter titles consistent without duplicate branding', () => {
+  const title = 'Projects | Dr. Priyank Gupta — Enterprise Architect';
+  const metadata = createMetadata({
+    title,
+    description: 'Explore selected projects.',
+    path: '/projects',
+  });
+
+  expect(metadata.title).toEqual({ absolute: title });
+  expect(metadata.openGraph?.title).toBe(title);
+  expect(metadata.twitter?.title).toBe(title);
+  expect(metadata.twitter).toMatchObject({ card: 'summary' });
+});
+
+it('renders the owner identity, professional headline, and portfolio calls to action', () => {
   render(<Hero />);
   expect(
-    screen.getByRole('heading', { level: 1, name: 'Dr. Priyank Gupta' })
+    screen.getByRole('heading', {
+      level: 1,
+      name: 'Building software that scales.',
+    })
   ).toBeInTheDocument();
-  expect(
-    screen.getByText(/14\+ years of experience delivering scalable enterprise solutions/)
-  ).toBeInTheDocument();
-  expect(screen.getByRole('link', { name: 'Explore My Work' })).toHaveAttribute(
+  expect(screen.getByText('Dr. Priyank Gupta')).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Explore Projects' })).toHaveAttribute(
     'href',
     '/projects'
   );
-  expect(screen.getByRole('link', { name: 'Book a Session' })).toHaveAttribute(
+  expect(screen.queryByRole('link', { name: /View Resume/i })).not.toBeInTheDocument();
+  const resumeDownload = screen.getByRole('link', { name: 'Download Resume' });
+  expect(resumeDownload).toHaveAttribute(
     'href',
-    '/contact?category=Workshop%20Request'
+    '/Priyank-Gupta-Resume-2026.pdf'
   );
+  expect(resumeDownload).toHaveAttribute('download', 'Priyank-Gupta-Resume-2026.pdf');
   expect(screen.getByRole('img', { name: /Dr\. Priyank Gupta/ })).toHaveAttribute(
     'src',
     expect.stringContaining('PriyankGupta')
   );
 });
 it('does not publish private contact information or unapproved links', () => {
+  expect(siteConfig.url).toBe('https://priyankgupta.vercel.app');
   expect(siteConfig.phone).toBe('');
   expect(siteConfig.alternateEmail).toBe('');
   expect(siteConfig.location).toBe('');
   expect(socialLinks).toHaveLength(0);
-  expect(siteConfig.publicResumeUrl).toBe('');
   expect(publishedArticles).toHaveLength(0);
   expect(publicAchievements).toHaveLength(0);
   expect(education.map((item) => item.shortDegree)).toEqual([

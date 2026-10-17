@@ -14,7 +14,6 @@ import {
   problemSolvingApproach,
 } from '@/content/expertise';
 import { projects } from '@/content/projects';
-import { BackToTop } from './BackToTop';
 import { CapabilityExplorer } from './CapabilityExplorer';
 import { TechnologyMap } from './TechnologyMap';
 
@@ -236,7 +235,6 @@ export function ExpertiseScreen() {
           </div>
         </div>
       </Section>
-      <BackToTop />
     </>
   );
 }

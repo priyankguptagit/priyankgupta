@@ -26,7 +26,10 @@ export function Section({
   return (
     <Tag
       id={id}
-      className={cn('relative px-5 py-12 sm:px-8 md:py-16 xl:py-20', className)}
+      className={cn(
+        'relative px-5 py-12 sm:px-6 md:py-16 lg:px-8 xl:px-12 xl:py-20',
+        className
+      )}
     >
       <Reveal className={cn('section-content mx-auto min-w-0 w-full', widths[width])}>
         {children}

@@ -4,6 +4,7 @@ import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SkipLink } from '@/components/layout/SkipLink';
+import { BackToTop } from '@/components/layout/BackToTop';
 import { PersonJsonLd, WebsiteJsonLd } from '@/components/seo/JsonLd';
 import { siteConfig } from '@/content/site';
 import { MotionProvider, PageTransition, ScrollProgress } from '@/components/ui/Motion';
@@ -11,7 +12,7 @@ import { MotionProvider, PageTransition, ScrollProgress } from '@/components/ui/
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.role}`,
+    default: `${siteConfig.name} | ${siteConfig.role}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   keywords: [
     'Dr. Priyank Gupta',
-    'Senior Solution Architect',
+    'Software Architecture',
     'Enterprise Architecture',
     'MERN',
     'Digital Transformation',
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     type: 'profile',
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — ${siteConfig.role}`,
+    title: `${siteConfig.name} | ${siteConfig.role}`,
     description: siteConfig.description,
     locale: siteConfig.locale,
     images: [
@@ -48,8 +49,8 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: `${siteConfig.name} — ${siteConfig.role}`,
+    card: 'summary',
+    title: `${siteConfig.name} | ${siteConfig.role}`,
     description: siteConfig.description,
     images: [`${siteConfig.url}/images/PriyankGupta.png`],
   },
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0F172A',
+  themeColor: '#0B1120',
   width: 'device-width',
   initialScale: 1,
 };
@@ -94,6 +95,7 @@ export default function RootLayout({
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />
+          <BackToTop />
         </MotionProvider>
         <PersonJsonLd />
         <WebsiteJsonLd />

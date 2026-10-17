@@ -10,14 +10,7 @@ import { Section, SectionHeading } from '@/components/ui/Section';
 import { ButtonLink } from '@/components/ui/Button';
 import { ProjectCard } from '@/components/ui/ContentCards';
 import { projects } from '@/content/projects';
-import { createMetadata } from '@/lib/seo';
-import { siteConfig } from '@/content/site';
 
-export const metadata = createMetadata({
-  title: 'Dr. Priyank Gupta - Senior Solution Architect',
-  description: siteConfig.description,
-  path: '/',
-});
 export default function HomePage() {
   return (
     <>

@@ -83,7 +83,7 @@ export function ProjectPortfolio() {
         typeof document !== 'undefined' &&
         createPortal(
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-slate-950/80 p-3 backdrop-blur-sm sm:p-4"
+            className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-ink-950/80 p-3 backdrop-blur-sm sm:p-4"
             onMouseDown={(event) => {
               if (event.target === event.currentTarget) setSelectedProject(null);
             }}
@@ -92,9 +92,9 @@ export function ProjectPortfolio() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="project-modal-title"
-              className="project-modal-scroll relative h-[80dvh] w-[80vw] max-w-6xl overflow-x-hidden overflow-y-auto overscroll-contain rounded-lg border border-white/10 bg-[#0b1120] shadow-[0_30px_80px_rgba(15,23,42,0.8)]"
+              className="project-modal-scroll relative h-[80dvh] w-full max-w-6xl overflow-y-auto overscroll-contain rounded-lg border border-white/10 bg-ink-950 shadow-[0_30px_80px_rgba(15,23,42,0.35)]"
             >
-              <div className="sticky top-0 z-10 border-b border-white/10 bg-[#0b1120]/95 px-4 py-3 backdrop-blur-sm sm:px-5">
+              <div className="sticky top-0 z-10 border-b border-white/10 bg-ink-950/95 px-4 py-3 backdrop-blur-sm sm:px-5">
                 <div className="flex items-start gap-3 sm:items-center sm:gap-5">
                   <h2
                     id="project-modal-title"

@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/Card';
 import type { ResearchPaper } from '@/content/research';
 
 export function ResearchPaperCard({ paper }: { readonly paper: ResearchPaper }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const abstractText = expanded ? paper.abstract : `${paper.abstract.slice(0, 260).trim()}...`;
 
   return (
@@ -73,15 +73,18 @@ export function ResearchPaperCard({ paper }: { readonly paper: ResearchPaper }) 
             type="button"
             onClick={() => setExpanded((current) => !current)}
             aria-expanded={expanded}
+            aria-controls={`abstract-${paper.id}`}
             className="inline-flex items-center gap-1 rounded-full border border-white/10 px-2.5 py-1.5 text-xs font-medium text-slate-200 transition hover:border-white/20 hover:text-white"
           >
-            {expanded ? 'Collapse' : 'Read more'}
+            {expanded ? 'Collapse abstract' : 'Expand abstract'}
             {expanded ? <ChevronUp size={14} aria-hidden="true" /> : <ChevronDown size={14} aria-hidden="true" />}
           </button>
         </div>
 
         <div className="w-full">
-          <p className="text-base leading-7 text-slate-300">{abstractText}</p>
+          <p id={`abstract-${paper.id}`} className="text-base leading-7 text-slate-300">
+            {abstractText}
+          </p>
         </div>
       </div>
     </Card>

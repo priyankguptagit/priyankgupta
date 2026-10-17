@@ -1,7 +1,7 @@
 import type { Stat } from '@/types';
 
 export const professionalSummary: readonly string[] = [
-  'Dr. Priyank Gupta is an Enterprise Architecture professional with 12+ years of IT experience, specializing in scalable web applications, full-stack engineering, enterprise architecture, and AI-driven systems.',
+  'Dr. Priyank Gupta is an Enterprise Architecture professional with 14+ years of IT experience, specializing in scalable web applications, full-stack engineering, enterprise architecture, and AI-driven systems.',
   'His experience spans modern JavaScript and TypeScript ecosystems, including React, Next.js, Node.js, and MERN Stack, alongside neural-network-based models and predictive analytics.',
   'He focuses on translating business requirements into scalable technology solutions, integrating intelligent capabilities into enterprise applications, and building secure, maintainable, high-performance software systems.',
 ];

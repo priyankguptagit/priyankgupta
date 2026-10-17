@@ -1,18 +1,26 @@
 import type { NavItem, SocialLink } from '@/types';
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const defaultSiteUrl = 'https://priyankgupta.vercel.app';
+const configuredSiteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || defaultSiteUrl);
+const isLocalHostname =
+  configuredSiteUrl.hostname === 'localhost' ||
+  configuredSiteUrl.hostname.endsWith('.localhost') ||
+  configuredSiteUrl.hostname === '127.0.0.1' ||
+  configuredSiteUrl.hostname === '0.0.0.0' ||
+  configuredSiteUrl.hostname === '[::1]';
+const siteUrl = isLocalHostname ? new URL(defaultSiteUrl) : configuredSiteUrl;
 
 export const siteConfig = {
-  domain: new URL(rawSiteUrl).hostname,
-  url: new URL(rawSiteUrl).origin,
+  domain: siteUrl.hostname,
+  url: siteUrl.origin,
   name: 'Dr. Priyank Gupta',
   /** Flip NEXT_PUBLIC_USE_DOCTOR_TITLE once the Ph.D. record is confirmed. */
   useDoctorTitle: true,
   role: 'Software Architect & Technology Leader',
   headline:
-    'Building practical software systems that scale.',
+    'Building software that scales.',
   tagline:
-    'I design dependable digital products, simplify complex systems, and turn business needs into working software.',
+    'I turn complex business needs into dependable software through enterprise architecture, full-stack engineering, and applied AI.',
   altTagline:
     'Practical architecture. Maintainable software. Shared knowledge.',
   description:
@@ -25,7 +33,6 @@ export const siteConfig = {
   phone: '',
   phoneHref: '',
   whatsappHref: '',
-  publicResumeUrl: '',
   locale: 'en_IN',
   disclaimer:
     'All views, opinions and content expressed on this website are personal and do not represent the views, strategy or opinions of any current or previous employer, client or partner.',
@@ -53,7 +60,6 @@ export const primaryNav: readonly NavItem[] = [
 ] as const;
 
 export const footerNav: readonly NavItem[] = [
-  { label: 'Public resume', href: '/resume' },
   { label: 'Achievements', href: '/achievements' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'Privacy', href: '/privacy' },

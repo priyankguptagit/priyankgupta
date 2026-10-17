@@ -10,7 +10,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ eyebrow, title, description, children }: PageHeaderProps) {
   return (
-    <div className="page-header relative overflow-hidden border-b border-white/10 px-5 py-7 sm:px-8 lg:min-h-35 lg:py-6">
+    <div className="page-header relative overflow-hidden border-b border-white/10 px-5 py-7 sm:px-6 lg:min-h-35 lg:px-8 lg:py-6 xl:px-12">
       <div aria-hidden="true" className="hero-grid absolute inset-0" />
       <Reveal className="relative mx-auto grid w-full max-w-6xl gap-x-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end">
         <p className="flex items-center gap-3 font-mono text-xs text-aqua-300 lg:col-span-2">

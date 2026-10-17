@@ -21,7 +21,7 @@ export function Portrait({
             src={profilePhoto.src}
             alt={profilePhoto.alt}
             fill
-            preload={prominent}
+            loading={prominent ? 'eager' : 'lazy'}
             sizes={
               prominent
                 ? '(min-width: 1024px) 420px, (min-width: 640px) 360px, 270px'

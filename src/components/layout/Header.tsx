@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
-import { primaryNav, profilePhoto, siteConfig } from '@/content/site';
+import { profilePhoto, siteConfig } from '@/content/site';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -16,7 +16,6 @@ const featuredNav = [
   { label: 'Projects', href: '/projects' },
   { label: 'Expertise', href: '/expertise' },
   { label: 'Publications', href: '/publications' },
-  { label: 'Resume', href: '/resume' },
   { label: 'Contact', href: '/contact' },
 ];
 const secondaryNav = [
@@ -24,6 +23,7 @@ const secondaryNav = [
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'Accessibility', href: '/accessibility' },
 ];
+const mobileNav = [...featuredNav, ...secondaryNav];
 
 export function Header() {
   const pathname = usePathname();
@@ -98,7 +98,7 @@ export function Header() {
     >
       <div
         className={cn(
-          'mx-auto flex max-w-[1200px] items-center justify-between gap-2 px-4 transition-[height] duration-300 sm:gap-3 sm:px-8',
+          'mx-auto flex max-w-[1200px] items-center justify-between gap-2 px-4 transition-[height] duration-300 sm:gap-3 sm:px-6 lg:px-8',
           scrolled && !open ? 'h-15' : 'h-16'
         )}
       >
@@ -207,7 +207,7 @@ export function Header() {
           href="/contact"
           className="action-button hidden min-h-11 shrink-0 items-center justify-center rounded-md border border-white/20 bg-white/5 px-4 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-white/10 xl:inline-flex"
         >
-          Get in Touchh
+          Get in Touch
         </Link>
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
@@ -249,7 +249,7 @@ export function Header() {
             <li className="mb-2 border-b border-white/10 sm:col-span-2">
               <NavigationProfile />
             </li>
-            {primaryNav.map((item, index) => (
+            {mobileNav.map((item, index) => (
               <m.li
                 key={item.href}
                 initial={false}

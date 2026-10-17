@@ -15,15 +15,18 @@ export function createMetadata({
   keywords = [],
 }: PageMetaOptions): Metadata {
   const url = `${siteConfig.url}${path}`;
+  const pageTitle = title.includes(siteConfig.name)
+    ? title
+    : `${title} | ${siteConfig.name}`;
   return {
-    title,
+    title: { absolute: pageTitle },
     description,
     keywords: [...keywords],
     alternates: { canonical: url },
     openGraph: {
       type: 'website',
       url,
-      title: `${title} | ${siteConfig.name}`,
+      title: pageTitle,
       description,
       siteName: siteConfig.name,
       locale: siteConfig.locale,
@@ -37,8 +40,8 @@ export function createMetadata({
       ],
     },
     twitter: {
-      card: 'summary_large_image',
-      title: `${title} | ${siteConfig.name}`,
+      card: 'summary',
+      title: pageTitle,
       description,
       images: [`${siteConfig.url}/images/PriyankGupta.png`],
     },

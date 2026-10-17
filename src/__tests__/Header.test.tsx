@@ -12,10 +12,8 @@ it('marks the active page and exposes all required navigation', async () => {
     'aria-current',
     'page'
   );
-  expect(screen.getByRole('link', { name: 'Education' })).toHaveAttribute(
-    'href',
-    '/education'
-  );
+  expect(screen.queryByRole('link', { name: 'Education' })).not.toBeInTheDocument();
+  expect(screen.queryByRole('link', { name: 'Resume' })).not.toBeInTheDocument();
 });
 it('toggles mobile navigation and returns focus on Escape', async () => {
   const user = userEvent.setup();
