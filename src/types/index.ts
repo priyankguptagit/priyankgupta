@@ -1,10 +1,10 @@
 /** Domain types for the priyankgupta.com personal site. */
 
 /** Marker for values that still need to be supplied by the site owner. */
-export type Placeholder = `[Add ${string}]`;
+type Placeholder = `[Add ${string}]`;
 
 /** A value that is either real content or an explicit, editable placeholder. */
-export type Editable<T = string> = T | Placeholder;
+type Editable<T = string> = T | Placeholder;
 
 export interface NavItem {
   readonly label: string;
@@ -33,7 +33,7 @@ export interface SocialLink {
   readonly handle: string;
 }
 
-export interface ExperienceProject {
+interface ExperienceProject {
   readonly name: Editable;
   readonly summary: Editable;
 }
@@ -68,27 +68,7 @@ export interface ExpertiseCategory {
   readonly skills: readonly string[];
 }
 
-export type AccentKey = 'indigo' | 'cyan' | 'violet' | 'emerald' | 'amber' | 'rose';
-
-export interface SpeakingTopic {
-  readonly id: string;
-  readonly title: string;
-  readonly audience: string;
-  readonly duration: string;
-  readonly level: 'Introductory' | 'Intermediate' | 'Advanced';
-  readonly summary: string;
-  readonly outcomes: readonly string[];
-  readonly accent: AccentKey;
-}
-
-export interface SpeakingFormat {
-  readonly id: string;
-  readonly title: string;
-  readonly duration: string;
-  readonly mode: string;
-  readonly description: string;
-  readonly cost: string;
-}
+type AccentKey = 'indigo' | 'cyan' | 'violet' | 'emerald' | 'amber' | 'rose';
 
 export interface Project {
   readonly id: string;
@@ -129,61 +109,4 @@ export interface Article {
   readonly updatedAt?: string;
   readonly author?: string;
   readonly featuredImage?: string;
-}
-
-export interface Testimonial {
-  readonly id: string;
-  readonly quote: Editable;
-  readonly author: Editable;
-  readonly role: Editable;
-  readonly organization: Editable;
-}
-
-export interface Stat {
-  readonly label: string;
-  readonly value: string;
-  readonly hint: string;
-}
-
-export type PublicationType =
-  | 'journal-article'
-  | 'conference-paper'
-  | 'patent'
-  | 'whitepaper'
-  | 'book-chapter';
-
-export interface Publication {
-  readonly id: string;
-  readonly title: string;
-  readonly type: PublicationType;
-  readonly venue: Editable;
-  readonly year: Editable;
-  readonly coAuthors: Editable;
-  readonly summary: string;
-  readonly link?: Editable;
-  readonly tags: readonly string[];
-}
-
-/** Identifiers for the standard session-length ladder offered for every training topic. */
-export type TrainingFormatId =
-  | 'webinar-1h'
-  | 'workshop-1d'
-  | 'workshop-2d'
-  | 'workshop-3d'
-  | 'training-7d'
-  | 'training-14d';
-
-export interface TrainingFormatTemplate {
-  readonly id: TrainingFormatId;
-  readonly label: string;
-  readonly duration: string;
-}
-
-export interface TrainingProgram {
-  readonly id: string;
-  readonly title: string;
-  readonly category: string;
-  readonly summary: string;
-  readonly accent: AccentKey;
-  readonly syllabus: Readonly<Record<TrainingFormatId, readonly string[]>>;
 }

@@ -56,25 +56,23 @@ it('renders the owner identity, professional headline, and portfolio calls to ac
     'href',
     '/projects'
   );
-  expect(
-    screen.getByRole('link', { name: 'Explore Learning Sessions' })
-  ).toHaveAttribute('href', '/knowledge-sharing');
+  expect(screen.getByRole('link', { name: 'Explore Learning Sessions' })).toHaveAttribute(
+    'href',
+    '/knowledge-sharing'
+  );
   expect(
     screen.getByRole('link', { name: 'Invite Me for a Free Session' })
   ).toHaveAttribute('href', '/contact?category=Seminar%20Request');
   expect(screen.queryByRole('link', { name: /View Resume/i })).not.toBeInTheDocument();
   const resumeDownload = screen.getByRole('link', { name: 'Download Resume' });
-  expect(resumeDownload).toHaveAttribute(
-    'href',
-    '/Priyank-Gupta-Resume-2026.pdf'
-  );
+  expect(resumeDownload).toHaveAttribute('href', '/Priyank-Gupta-Resume-2026.pdf');
   expect(resumeDownload).toHaveAttribute('download', 'Priyank-Gupta-Resume-2026.pdf');
   expect(screen.getByRole('img', { name: /Dr\. Priyank Gupta/ })).toHaveAttribute(
     'src',
     expect.stringContaining('PriyankGupta')
   );
 });
-it('presents the two brand pillars and previews verified publications', () => {
+it('presents the two brand pillars and previews existing research', () => {
   const firstPaper = researchWorks[0];
   if (!firstPaper) throw new Error('Missing research publication');
 
@@ -84,29 +82,16 @@ it('presents the two brand pillars and previews verified publications', () => {
       <ResearchPreview />
     </>
   );
-  expect(screen.getByRole('heading', { name: 'My Professional Journey' })).toBeInTheDocument();
+  expect(
+    screen.getByRole('heading', { name: 'My Professional Journey' })
+  ).toBeInTheDocument();
   expect(
     screen.getByRole('heading', { name: 'Knowledge Is Better When Shared' })
   ).toBeInTheDocument();
+  expect(
+    screen.getByRole('link', { name: 'Explore Research & Publications' })
+  ).toHaveAttribute('href', '/publications');
   expect(screen.getByRole('heading', { name: firstPaper.title })).toBeInTheDocument();
-  expect(
-    screen.getByRole('link', { name: 'Explore Research & Publications' })
-  ).toHaveAttribute('href', '/publications');
-});
-it('presents the two brand pillars and previews existing research', () => {
-  render(
-    <>
-      <BrandIdentityCards />
-      <ResearchPreview />
-    </>
-  );
-  expect(screen.getByRole('heading', { name: 'My Professional Journey' })).toBeInTheDocument();
-  expect(
-    screen.getByRole('heading', { name: 'Knowledge Is Better When Shared' })
-  ).toBeInTheDocument();
-  expect(
-    screen.getByRole('link', { name: 'Explore Research & Publications' })
-  ).toHaveAttribute('href', '/publications');
 });
 it('does not publish private contact information or unapproved links', () => {
   expect(siteConfig.url).toBe('https://priyankgupta.vercel.app');

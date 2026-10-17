@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-export { ZodError } from 'zod';
-
 export const categories = [
   'General Professional Query',
   'Webinar Request',
@@ -62,7 +60,7 @@ export const audienceCategories = [
   'Job Seekers',
   'Other',
 ] as const;
-export const institutionalAudienceCategories = [
+const institutionalAudienceCategories = [
   'School Students',
   'College Students',
   'University Students',
@@ -74,11 +72,7 @@ export const institutionalAudienceCategories = [
 ] as const;
 
 export const deliveryModes = ['Online', 'Offline', 'Hybrid', 'Either'] as const;
-export const budgetTypes = [
-  'Free Session',
-  'Sponsored Session',
-  'To Be Discussed',
-] as const;
+const budgetTypes = ['Free Session', 'Sponsored Session', 'To Be Discussed'] as const;
 export const durations = [
   '30 Minutes',
   '45 Minutes',
@@ -89,16 +83,6 @@ export const durations = [
   'Full Day',
   'To Be Discussed',
 ] as const;
-export const inquiryStatuses = [
-  'new',
-  'reviewed',
-  'contacted',
-  'scheduled',
-  'closed',
-  'rejected',
-  'spam',
-] as const;
-
 export const successMessage =
   'Thank you for your interest in organizing a learning session. Your request has been received. I will review the details and respond if the topic, schedule, and arrangements are feasible.';
 
@@ -300,21 +284,7 @@ export const inquirySchema = z
   });
 
 export type InquiryInput = z.infer<typeof inquirySchema>;
-export type StoredInquiryInput = Omit<InquiryInput, 'website'>;
 export type FieldError = { field: string; message: string };
-export type InquiryResponse =
-  | {
-      success: true;
-      message: string;
-      data: { referenceId: string };
-      requestId: string;
-    }
-  | {
-      success: false;
-      message: string;
-      errors?: FieldError[];
-      requestId: string;
-    };
 
 export function validationErrors(error: z.ZodError): FieldError[] {
   return error.issues.map((issue) => ({

@@ -20,8 +20,7 @@ export const siteConfig = {
   headline: 'Exploring technology. Sharing knowledge. Enabling growth.',
   tagline:
     'I work across software architecture, engineering, AI and machine learning, and research. I also welcome opportunities to share practical technical knowledge through free learning sessions, subject to availability.',
-  altTagline:
-    'Practical architecture. Maintainable software. Shared knowledge.',
+  altTagline: 'Practical architecture. Maintainable software. Shared knowledge.',
   description:
     'Dr. Priyank Gupta is a Software Architect and Technology Leader exploring scalable systems, applied AI and machine learning, research, and free technical knowledge-sharing sessions.',
   experience: '14+ years of IT experience',
@@ -39,8 +38,6 @@ export const siteConfig = {
     'This website does not use advertising cookies or third-party trackers. Form submissions are used only to respond to your enquiry.',
 } as const;
 
-export const displayName = siteConfig.name;
-
 /** Served from /public/images. Replace the file in place to swap the portrait. */
 export const profilePhoto = {
   src: '/images/PriyankGupta.png',
@@ -52,9 +49,21 @@ export const profilePhoto = {
 export const primaryNav: readonly NavItem[] = [
   { label: 'Home', href: '/', description: 'Overview and highlights' },
   { label: 'About', href: '/about', description: 'Professional story and principles' },
-  { label: 'Knowledge Sharing', href: '/knowledge-sharing', description: 'Free technical learning sessions' },
-  { label: 'Learning Resources', href: '/resources', description: 'Technical learning materials' },
-  { label: 'Publications', href: '/publications', description: 'Published papers and research articles' },
+  {
+    label: 'Knowledge Sharing',
+    href: '/knowledge-sharing',
+    description: 'Free technical learning sessions',
+  },
+  {
+    label: 'Learning Resources',
+    href: '/resources',
+    description: 'Technical learning materials',
+  },
+  {
+    label: 'Publications',
+    href: '/publications',
+    description: 'Published papers and research articles',
+  },
   { label: 'Projects', href: '/projects' },
   { label: 'Expertise', href: '/expertise' },
   { label: 'Contact', href: '/contact', description: 'Get in touch' },
@@ -82,14 +91,3 @@ export const footerMap = {
  * `EditableValue`-style rendering keeps unverified links from becoming dead links.
  */
 export const socialLinks: readonly SocialLink[] = [];
-
-/** Ordered contact channels rendered on the contact and speaking pages. */
-export const contactChannels = siteConfig.email ? [
-  {
-    id: 'primary-email',
-    label: 'Primary email',
-    value: siteConfig.email,
-    href: `mailto:${siteConfig.email}`,
-    hint: 'Best for professional, speaking and collaboration enquiries.',
-  },
-] : [];

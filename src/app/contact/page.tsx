@@ -46,7 +46,9 @@ export default async function ContactPage({
                 <MessagesSquare size={23} aria-hidden="true" />
               </span>
               <div>
-                <p className="font-mono text-xs text-aqua-300">LET'S MAKE A CONNECTION</p>
+                <p className="font-mono text-xs text-aqua-300">
+                  LET&apos;S MAKE A CONNECTION
+                </p>
                 <h2 className="mt-1 text-2xl font-semibold text-white">
                   Your next idea starts here.
                 </h2>

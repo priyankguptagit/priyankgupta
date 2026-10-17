@@ -56,33 +56,6 @@ export function Parallax({
   );
 }
 
-export function Typewriter({ text }: { text: string }) {
-  const reduced = useReducedMotion();
-  return (
-    <span className="relative inline-block max-w-full">
-      <span className="sr-only">{text}</span>
-      <m.span
-        aria-hidden="true"
-        className="typewriter inline-block"
-        initial={false}
-        animate={
-          reduced
-            ? { clipPath: 'inset(0 0% 0 0)' }
-            : { clipPath: ['inset(0 100% 0 0)', 'inset(0 0% 0 0)'] }
-        }
-        transition={{
-          duration: 1.2,
-          ease: (progress) =>
-            Math.floor(progress * text.length) / Math.max(1, text.length),
-          delay: 0.2,
-        }}
-      >
-        {text}
-      </m.span>
-    </span>
-  );
-}
-
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const reduced = useReducedMotion();
@@ -160,44 +133,6 @@ export function AnimatedCounter({
         {label}
       </p>
     </div>
-  );
-}
-
-export function CharacterReveal({ text }: { text: string }) {
-  const reduced = useReducedMotion();
-  return (
-    <span>
-      <span className="sr-only">{text}</span>
-      <span aria-hidden="true">
-        {text.split(' ').map((word, wordIndex) => (
-          <span key={`${word}-${wordIndex}`} className="inline-block whitespace-nowrap">
-            {word.split('').map((character, characterIndex) => (
-              <m.span
-                key={`${character}-${characterIndex}`}
-                className="inline-block"
-                initial={false}
-                animate={
-                  reduced
-                    ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                    : {
-                        opacity: [0.75, 1],
-                        y: [8, 0],
-                        filter: ['blur(2px)', 'blur(0px)'],
-                      }
-                }
-                transition={{
-                  duration: 0.4,
-                  delay: wordIndex * 0.14 + characterIndex * 0.025,
-                }}
-              >
-                {character}
-              </m.span>
-            ))}
-            {wordIndex < text.split(' ').length - 1 ? '\u00a0' : ''}
-          </span>
-        ))}
-      </span>
-    </span>
   );
 }
 

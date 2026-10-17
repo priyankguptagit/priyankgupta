@@ -128,9 +128,6 @@ export const experiences: readonly Experience[] = [
   },
 ];
 
-export const currentRole =
-  experiences.find((item) => item.currentlyWorking) ?? experiences[experiences.length - 1];
-
 export const experiencesNewestFirst: readonly Experience[] = [...experiences].sort(
   (a, b) => b.order - a.order
 );

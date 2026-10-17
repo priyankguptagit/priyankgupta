@@ -8,4 +8,5 @@ module.exports = createJestConfig({
   setupFilesAfterEnv: ['<rootDir>/src/jest.setup.ts'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+  modulePathIgnorePatterns: ['<rootDir>/.next/'],
 });

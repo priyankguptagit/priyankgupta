@@ -1,7 +1,9 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import nextVitals from 'eslint-config-next/core-web-vitals';
 
 export default tseslint.config(
+  ...nextVitals,
   {
     ignores: ['.next/**', 'node_modules/**', 'coverage/**'],
   },
