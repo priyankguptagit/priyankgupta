@@ -207,7 +207,7 @@ export function Header() {
           href="/contact"
           className="action-button hidden min-h-11 shrink-0 items-center justify-center rounded-md border border-white/20 bg-white/5 px-4 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-white/10 xl:inline-flex"
         >
-          Get in Touch
+          Get in Touchh
         </Link>
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
