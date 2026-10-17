@@ -51,3 +51,30 @@ rate limiting, spam controls, storage, access, retention, and deletion behavior,
 test successful, failed, and timeout responses. The same-origin route does not persist
 submissions itself. If the variable is absent or invalid, it returns an error instead
 of showing a false success state.
+
+## Local Gmail test button
+
+During local development only, the header includes a **Send test email** button beside
+**Invite Me**. It sends the fixed message below through Gmail SMTP:
+
+- From: `guptapriyank87@gmail.com`
+- To: `priyankguptagwalior@gmail.com`
+- Subject: `test`
+- Body: `hello test`
+
+To enable it, use the `guptapriyank87@gmail.com` account to create a Google App Password
+(the account must have 2-Step Verification enabled), then add this to the ignored,
+local-only `.env.local` file:
+
+```dotenv
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=guptapriyank87@gmail.com
+SMTP_APP_PASSWORD=your-16-character-app-password
+MAIL_FROM=guptapriyank87@gmail.com
+```
+
+Do not commit or share the App Password. These SMTP settings and sender address must
+match the specified Gmail account. Restart the development server after adding them.
+The `/api/test-email` endpoint rejects non-loopback hosts and is disabled in
+production; it does not accept a recipient, subject, or message from the browser.

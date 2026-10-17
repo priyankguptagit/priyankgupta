@@ -90,7 +90,7 @@ export default function RootLayout({
         <MotionProvider>
           <ScrollProgress />
           <SkipLink />
-          <Header />
+          <Header showTestEmailButton={process.env.NODE_ENV === 'development'} />
           <main id="main" tabIndex={-1} className="relative">
             <PageTransition>{children}</PageTransition>
           </main>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, LoaderCircle, Mail, Menu, X } from 'lucide-react';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import { profilePhoto, siteConfig } from '@/content/site';
 import { cn } from '@/lib/utils';
@@ -29,11 +29,17 @@ const secondaryNav = [
 ];
 const mobileNav = [...featuredNav, ...secondaryNav];
 
-export function Header() {
+export function Header({
+  showTestEmailButton = false,
+}: {
+  readonly showTestEmailButton?: boolean;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [sendingTestEmail, setSendingTestEmail] = useState(false);
+  const [testEmailMessage, setTestEmailMessage] = useState('');
   const reduced = useReducedMotion();
   const header = useRef<HTMLElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -92,6 +98,33 @@ export function Header() {
     href === '/'
       ? pathname === '/'
       : pathname === href || pathname.startsWith(`${href}/`);
+
+  async function sendTestEmail() {
+    if (sendingTestEmail) return;
+    setSendingTestEmail(true);
+    setTestEmailMessage('');
+    try {
+      const response = await fetch('/api/test-email', {
+        method: 'POST',
+        credentials: 'same-origin',
+      });
+      const result: unknown = await response.json().catch(() => null);
+      const message =
+        typeof result === 'object' &&
+        result !== null &&
+        'message' in result &&
+        typeof result.message === 'string'
+          ? result.message
+          : 'Could not send the test email. Check your local Gmail App Password configuration.';
+      setTestEmailMessage(message);
+    } catch {
+      setTestEmailMessage(
+        'Could not reach the local email test service. Check that the development server is running.'
+      );
+    } finally {
+      setSendingTestEmail(false);
+    }
+  }
   return (
     <header
       ref={header}
@@ -207,12 +240,33 @@ export function Header() {
             </AnimatePresence>
           </div>
         </nav>
-        <Link
-          href="/contact?category=Seminar%20Request"
-          className="action-button hidden min-h-11 shrink-0 items-center justify-center rounded-md border border-white/20 bg-white/5 px-4 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-white/10 lg:inline-flex"
-        >
-          Invite Me
-        </Link>
+        <div className="hidden shrink-0 items-center gap-2 lg:flex">
+          <Link
+            href="/contact?category=Seminar%20Request"
+            className="action-button inline-flex min-h-11 items-center justify-center rounded-md border border-white/20 bg-white/5 px-4 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-white/10"
+          >
+            Invite Me
+          </Link>
+          {showTestEmailButton && (
+            <button
+              type="button"
+              onClick={sendTestEmail}
+              disabled={sendingTestEmail}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-aqua-300/40 bg-aqua-300/10 px-3 text-sm font-semibold whitespace-nowrap text-aqua-100 transition-colors hover:bg-aqua-300/20 disabled:cursor-wait disabled:opacity-60"
+            >
+              {sendingTestEmail ? (
+                <LoaderCircle
+                  size={16}
+                  aria-hidden="true"
+                  className="motion-safe:animate-spin"
+                />
+              ) : (
+                <Mail size={16} aria-hidden="true" />
+              )}
+              {sendingTestEmail ? 'Sending...' : 'Send test email'}
+            </button>
+          )}
+        </div>
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
           <button
@@ -285,9 +339,39 @@ export function Header() {
                 Invite Me for a Free Session
               </Link>
             </li>
+            {showTestEmailButton && (
+              <li className="sm:col-span-2">
+                <button
+                  type="button"
+                  onClick={sendTestEmail}
+                  disabled={sendingTestEmail}
+                  className="mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-md border border-aqua-300/40 bg-aqua-300/10 px-4 font-semibold text-aqua-100 transition-colors hover:bg-aqua-300/20 disabled:cursor-wait disabled:opacity-60"
+                >
+                  {sendingTestEmail ? (
+                    <LoaderCircle
+                      size={18}
+                      aria-hidden="true"
+                      className="motion-safe:animate-spin"
+                    />
+                  ) : (
+                    <Mail size={18} aria-hidden="true" />
+                  )}
+                  {sendingTestEmail ? 'Sending test email...' : 'Send test email'}
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
+      {showTestEmailButton && testEmailMessage && (
+        <p
+          role="status"
+          aria-live="polite"
+          className="absolute right-4 top-full z-50 mt-2 max-w-sm rounded-lg border border-white/15 bg-ink-950 px-4 py-3 text-sm text-slate-200 shadow-xl"
+        >
+          {testEmailMessage}
+        </p>
+      )}
     </header>
   );
 }
