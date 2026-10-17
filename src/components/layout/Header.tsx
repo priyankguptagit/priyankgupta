@@ -245,7 +245,7 @@ export function Header({
             href="/contact?category=Seminar%20Request"
             className="action-button inline-flex min-h-11 items-center justify-center rounded-md border border-white/20 bg-white/5 px-4 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-white/10"
           >
-            Invite Me
+            Invite Mee
           </Link>
           {showTestEmailButton && (
             <button
