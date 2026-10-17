@@ -32,23 +32,22 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold text-white">Purpose and storage</h2>
             <p className="mt-3">
-              Validated inquiries are stored in a private MongoDB database to review and
-              respond to professional queries and coordinate requested sessions. A
-              notification containing the submitted details is also sent to the site
-              owner through Resend, an email delivery provider; the email address you
-              provide is set as the reply-to address. No account or automatic marketing
-              subscription is created. Submission contents are not written to
-              application logs. A temporary network identifier is used in memory for
-              abuse rate limiting and is not stored with the inquiry.
+              When configured, the website sends your request through its server-side
+              route to an independently operated inquiry service so it can be reviewed and
+              answered. This repository does not contain that service, its database, or
+              its email provider. Its operator determines where submissions are stored,
+              who can access them, which processors receive them, and how long they are
+              retained. No account or marketing subscription is created by this website.
             </p>
           </section>
           <section>
             <h2 className="text-xl font-semibold text-white">Retention and deletion</h2>
             <p className="mt-3">
-              Retention period: awaiting owner confirmation before public launch. You can
-              request access, correction or deletion using the contact form, quoting your
-              public reference if available. Identity verification and the final deletion
-              process, including backups, must be confirmed by the owner.
+              The inquiry service operator must confirm its retention period, deletion
+              process, and treatment of backups before accepting production requests. You
+              can request access, correction, or deletion by contacting the site owner.
+              Please include the public reference returned after a successful submission,
+              if available.
             </p>
             <p className="mt-3">
               Public privacy email: {siteConfig.email || 'awaiting owner confirmation'}.
@@ -63,18 +62,20 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-xl font-semibold text-white">Cookies and analytics</h2>
             <p className="mt-3">
-              No analytics, advertising trackers, newsletter or application cookies are
-              currently installed. Hosting providers may retain operational access logs
-              under their own policies; production hosting has not yet been selected.
+              This site does not use analytics, advertising trackers, or marketing
+              cookies. It stores your theme preference in your browser&apos;s local
+              storage. The location map opens Google Maps only when you follow its link.
+              The website is deployed on Vercel, whose infrastructure may process
+              operational request data under its own policies.
             </p>
           </section>
           <section>
             <h2 className="text-xl font-semibold text-white">Security limitations</h2>
             <p className="mt-3">
-              Input validation, limited API access and security headers reduce risk but
-              cannot guarantee absolute security. Production hosting must use HTTPS and
-              restricted database access. Please do not send passwords, private documents
-              or employer/customer confidential information.
+              The website validates requests before forwarding them, but the independent
+              inquiry service is responsible for its own validation, access controls, rate
+              limiting, storage security, and incident response. Please do not send
+              passwords, private documents, or employer/customer confidential information.
             </p>
           </section>
         </div>

@@ -13,8 +13,8 @@ import {
   Network,
   UsersRound,
 } from 'lucide-react';
-import { capabilityAreas, expertiseCategories } from '@/content/expertise';
-import { projects } from '@/content/projects';
+import { expertiseCategories, type CapabilityArea } from '@/content/expertise';
+import type { Project } from '@/types';
 
 const icons = {
   architecture: Network,
@@ -25,12 +25,20 @@ const icons = {
   leadership: UsersRound,
 } as const;
 
-const projectsById = new Map(projects.map((project) => [project.id, project]));
-const categoriesById = new Map(expertiseCategories.map((category) => [category.id, category]));
+const categoriesById = new Map(
+  expertiseCategories.map((category) => [category.id, category])
+);
 
-export function CapabilityExplorer() {
+export function CapabilityExplorer({
+  areas,
+  projects,
+}: {
+  readonly areas: readonly CapabilityArea[];
+  readonly projects: readonly Project[];
+}) {
   const [selectedAreaId, setSelectedAreaId] = useState<string | null>(null);
-  const selectedArea = capabilityAreas.find((area) => area.id === selectedAreaId);
+  const projectsById = new Map(projects.map((project) => [project.id, project]));
+  const selectedArea = areas.find((area) => area.id === selectedAreaId);
   const subcategories =
     selectedArea?.subcategoryIds
       .map((id) => categoriesById.get(id))
@@ -43,7 +51,7 @@ export function CapabilityExplorer() {
   return (
     <div>
       <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-        {capabilityAreas.map((area) => {
+        {areas.map((area) => {
           const Icon = icons[area.icon];
           const selected = selectedAreaId === area.id;
 
@@ -135,7 +143,9 @@ export function CapabilityExplorer() {
                 <details className="group/subcategory" open={index === 0}>
                   <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 [&::-webkit-details-marker]:hidden">
                     <span className="min-w-0">
-                      <span className="block font-semibold text-white">{category.title}</span>
+                      <span className="block font-semibold text-white">
+                        {category.title}
+                      </span>
                       <span className="mt-0.5 block text-xs text-slate-400">
                         {category.skills.length} skills
                       </span>

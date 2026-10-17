@@ -45,10 +45,25 @@ export default function AboutPage() {
               />
             </div>
           </div>
-          <div className="profile-narrative max-w-[65ch] space-y-6 text-base leading-[1.7] sm:text-lg">
-            {professionalSummary.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+          <div className="max-w-[65ch]">
+            <div className="profile-narrative space-y-6 text-base leading-[1.7] sm:text-lg">
+              {professionalSummary.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <ButtonLink
+                href="/Priyank-Gupta-Resume-2026.pdf"
+                download="Priyank-Gupta-Resume-2026.pdf"
+                variant="secondary"
+              >
+                <ArrowUpRight size={17} aria-hidden="true" />
+                Download Resume
+              </ButtonLink>
+              <ButtonLink href="/projects" variant="outline">
+                Explore Projects <ArrowUpRight size={17} aria-hidden="true" />
+              </ButtonLink>
+            </div>
           </div>
         </div>
       </Section>
@@ -87,9 +102,6 @@ export default function AboutPage() {
                 <p className="mt-3 text-lg text-slate-400">{category.summary}</p>
               </Card>
             ))}
-            <ButtonLink href="#experience-journey" variant="outline">
-              View the journey <ArrowUpRight size={17} aria-hidden="true" />
-            </ButtonLink>
           </div>
         </div>
       </Section>

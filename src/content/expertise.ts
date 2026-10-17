@@ -66,8 +66,7 @@ export const expertiseCategories: readonly ExpertiseCategory[] = [
   {
     id: 'backend',
     title: 'Backend & API Engineering',
-    summary:
-      'Modular services and clear API contracts for maintainable applications.',
+    summary: 'Modular services and clear API contracts for maintainable applications.',
     accent: 'emerald',
     skills: [
       'Node.js',
@@ -90,8 +89,7 @@ export const expertiseCategories: readonly ExpertiseCategory[] = [
   {
     id: 'cloud-devops',
     title: 'Cloud & DevOps',
-    summary:
-      'Cloud and DevOps exposure, automated pipelines and controlled releases.',
+    summary: 'Cloud and DevOps exposure, automated pipelines and controlled releases.',
     accent: 'violet',
     skills: [
       'AWS',
@@ -135,12 +133,19 @@ export const expertiseCategories: readonly ExpertiseCategory[] = [
     title: 'Testing & Quality',
     summary: 'Maintainable software supported by repeatable checks and review.',
     accent: 'cyan',
-    skills: ['Unit testing', 'Integration testing', 'Software quality', 'Code review', 'Clean code'],
+    skills: [
+      'Unit testing',
+      'Integration testing',
+      'Software quality',
+      'Code review',
+      'Clean code',
+    ],
   },
   {
     id: 'programming',
     title: 'Programming Languages',
-    summary: 'Programming foundations and application development across technology stacks.',
+    summary:
+      'Programming foundations and application development across technology stacks.',
     accent: 'amber',
     skills: ['C', 'C++', 'C#', 'Java', 'Python', 'JavaScript', 'TypeScript', 'PHP'],
   },
@@ -149,7 +154,14 @@ export const expertiseCategories: readonly ExpertiseCategory[] = [
     title: 'Mentoring & Knowledge Sharing',
     summary: 'Practical technology learning for students, professionals and communities.',
     accent: 'rose',
-    skills: ['Technical mentoring', 'Career guidance', 'Workshops', 'Seminars', 'Technology awareness', 'Practical learning'],
+    skills: [
+      'Technical mentoring',
+      'Career guidance',
+      'Workshops',
+      'Seminars',
+      'Technology awareness',
+      'Practical learning',
+    ],
   },
   {
     id: 'ways-of-working',
@@ -206,6 +218,17 @@ export const expertiseMapCategories = [
   { id: 'technical-leadership', label: 'Technical Leadership', icon: 'leadership' },
 ] as const;
 
+export interface CapabilityArea {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly icon:
+    'architecture' | 'engineering' | 'cloud' | 'integration' | 'ai' | 'leadership';
+  readonly skills: readonly string[];
+  readonly subcategoryIds: readonly string[];
+  readonly projectIds: readonly string[];
+}
+
 export const capabilityAreas = [
   {
     id: 'solution-architecture',
@@ -231,7 +254,11 @@ export const capabilityAreas = [
     icon: 'engineering',
     skills: ['React', 'Next.js', 'Node.js', 'TypeScript', 'REST API design'],
     subcategoryIds: ['frontend', 'backend', 'programming', 'testing-quality'],
-    projectIds: ['cardinal', 'rise-automation', 'praedico-education-stock-prediction-portal'],
+    projectIds: [
+      'cardinal',
+      'rise-automation',
+      'praedico-education-stock-prediction-portal',
+    ],
   },
   {
     id: 'cloud-delivery',
@@ -239,7 +266,13 @@ export const capabilityAreas = [
     description:
       'Consider cloud platforms, containerization, automation, and release practices that support dependable delivery.',
     icon: 'cloud',
-    skills: ['AWS', 'Docker', 'CI/CD pipelines', 'Release management', 'Deployment architecture'],
+    skills: [
+      'AWS',
+      'Docker',
+      'CI/CD pipelines',
+      'Release management',
+      'Deployment architecture',
+    ],
     subcategoryIds: ['cloud-devops'],
     projectIds: ['onemes', 'cardinal', 'rise-automation'],
   },
@@ -249,7 +282,13 @@ export const capabilityAreas = [
     description:
       'Work with data models, service contracts, and integrations that help applications communicate clearly.',
     icon: 'integration',
-    skills: ['REST API design', 'API integration', 'MongoDB', 'MySQL', 'Relational database design'],
+    skills: [
+      'REST API design',
+      'API integration',
+      'MongoDB',
+      'MySQL',
+      'Relational database design',
+    ],
     subcategoryIds: ['backend', 'databases'],
     projectIds: ['onemes', 'cardinal', 'praedico-education-stock-prediction-portal'],
   },
@@ -259,7 +298,12 @@ export const capabilityAreas = [
     description:
       'Explore practical applications of AI and machine learning with attention to appropriate use and evaluation.',
     icon: 'ai',
-    skills: ['Machine learning', 'Neural networks', 'Python', 'AI-related application development'],
+    skills: [
+      'Machine learning',
+      'Neural networks',
+      'Python',
+      'AI-related application development',
+    ],
     subcategoryIds: ['ai'],
     projectIds: [
       'onemes',
@@ -283,7 +327,7 @@ export const capabilityAreas = [
     subcategoryIds: ['mentoring', 'ways-of-working'],
     projectIds: ['onemes', 'cardinal'],
   },
-] as const;
+] as const satisfies readonly CapabilityArea[];
 
 export const problemSolvingApproach = {
   title: 'How I Approach Technology Challenges',
@@ -298,12 +342,14 @@ export const problemSolvingApproach = {
     {
       id: 'design',
       title: 'Design',
-      description: 'Define system architecture, components, data flows, and integrations.',
+      description:
+        'Define system architecture, components, data flows, and integrations.',
     },
     {
       id: 'build',
       title: 'Build',
-      description: 'Focus on implementation quality, testing, security, and maintainability.',
+      description:
+        'Focus on implementation quality, testing, security, and maintainability.',
     },
     {
       id: 'improve',

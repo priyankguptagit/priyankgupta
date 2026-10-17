@@ -1,4 +1,5 @@
-import { ArrowDown, ArrowUpRight, Download, Network } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Network } from 'lucide-react';
+import Link from 'next/link';
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Motion';
 import { Portrait } from '@/components/visuals/Portrait';
@@ -13,7 +14,9 @@ export function Hero() {
           <p className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-aqua-300 sm:text-base">
             <span aria-hidden="true" className="h-px w-10 bg-aqua-400" />
             <span>{siteConfig.name}</span>
-            <span aria-hidden="true" className="text-slate-500">/</span>
+            <span aria-hidden="true" className="text-slate-500">
+              /
+            </span>
             {siteConfig.role}
           </p>
           <h1 className="hero-title font-semibold leading-[1.12] text-white">
@@ -33,24 +36,19 @@ export function Hero() {
           <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
             {siteConfig.tagline}
           </p>
-          <div className="mt-4 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap items-center gap-3">
             <ButtonLink href="/projects">
               Explore My Work <ArrowUpRight size={17} aria-hidden="true" />
             </ButtonLink>
-            <ButtonLink href="/knowledge-sharing" variant="secondary">
-              Explore Learning Sessions <ArrowUpRight size={17} aria-hidden="true" />
-            </ButtonLink>
-            <ButtonLink href="/contact?category=Seminar%20Request" variant="outline">
+            <ButtonLink href="/contact?category=Seminar%20Request" variant="secondary">
               Invite Me for a Free Session <ArrowUpRight size={17} aria-hidden="true" />
             </ButtonLink>
-            <ButtonLink
-              href="/Priyank-Gupta-Resume-2026.pdf"
-              download="Priyank-Gupta-Resume-2026.pdf"
-              variant="ghost"
+            <Link
+              href="/knowledge-sharing"
+              className="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-semibold text-aqua-300 underline decoration-aqua-300/40 underline-offset-4 transition-colors hover:text-white"
             >
-              <Download size={17} aria-hidden="true" />
-              Download Resume
-            </ButtonLink>
+              Explore session topics <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
           </div>
         </Reveal>
         <a

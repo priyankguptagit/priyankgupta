@@ -1,6 +1,13 @@
 import Link from 'next/link';
+import { MapPin } from 'lucide-react';
 import { SocialLinks } from '@/components/ui/SocialLinks';
-import { footerMap, footerNav, primaryNav, siteConfig, socialLinks } from '@/content/site';
+import {
+  footerMap,
+  footerNav,
+  primaryNav,
+  siteConfig,
+  socialLinks,
+} from '@/content/site';
 
 export function Footer() {
   return (
@@ -75,26 +82,23 @@ export function Footer() {
         >
           <div>
             <p className="font-mono text-xs text-aqua-300">LOCATION</p>
-            <h2 id="footer-location-title" className="mt-2 text-xl font-semibold text-white">
+            <h2
+              id="footer-location-title"
+              className="mt-2 text-xl font-semibold text-white"
+            >
               {footerMap.title}
             </h2>
             <p className="mt-1 text-sm text-slate-300">{footerMap.address}</p>
-            <a
-              href={footerMap.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex min-h-11 items-center text-sm font-medium text-aqua-300 underline decoration-aqua-300/40 underline-offset-4 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua-300"
-            >
-              Open in Google Maps
-            </a>
           </div>
-          <iframe
-            title={`Map of ${footerMap.title}, ${footerMap.address}`}
-            src={`https://maps.google.com/maps?q=${encodeURIComponent(footerMap.query)}&output=embed`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="h-56 w-full rounded-xl border border-white/10 bg-ink-900 sm:h-64 lg:h-60"
-          />
+          <a
+            href={footerMap.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex min-h-44 items-center justify-center gap-3 rounded-xl border border-white/10 bg-ink-900 px-5 text-center font-semibold text-aqua-300 transition-colors hover:border-aqua-300/40 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aqua-300 sm:min-h-56"
+          >
+            <MapPin size={22} aria-hidden="true" />
+            Open location in Google Maps
+          </a>
         </section>
         <div className="flex flex-col gap-3 pt-5 text-sm text-slate-400 sm:flex-row sm:items-start sm:justify-between">
           <p className="max-w-3xl leading-relaxed">{siteConfig.disclaimer}</p>

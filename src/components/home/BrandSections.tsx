@@ -17,7 +17,6 @@ import { Reveal, AnimatedCounter, Parallax } from '@/components/ui/Motion';
 import { ButtonLink } from '@/components/ui/Button';
 import { ArchitectureScene } from './ArchitectureScene';
 import { SpeakerSpotlight } from './SpeakerSpotlight';
-import { projects } from '@/content/projects';
 import { topicNames } from '@/content/session-topics';
 import { expertiseCategories } from '@/content/expertise';
 import { researchWorks } from '@/content/research';
@@ -39,7 +38,7 @@ const innovationAreas = [
     title: 'Automation Workflows',
     icon: Workflow,
     text: 'Connecting systems and simplifying repetitive work with clear, reliable workflows.',
-    href: '/projects',
+    href: '/expertise#capabilities',
   },
   {
     title: 'Digital Transformation',
@@ -58,7 +57,6 @@ const innovationAreas = [
 export function ProfileBand() {
   const metrics = [
     { value: 14, suffix: '+', label: 'Years of experience' },
-    { value: projects.length, label: 'Project areas' },
     { value: topicNames.length, label: 'Learning topics' },
     {
       value:
@@ -71,7 +69,7 @@ export function ProfileBand() {
   return (
     <Section className="metrics-band border-b border-white/10" width="wide">
       <h2 className="sr-only">Experience and areas of focus</h2>
-      <div className="metric-rail grid grid-cols-2 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="metric-rail grid grid-cols-2 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
         {metrics.map((metric, index) => (
           <Reveal key={metric.label} delay={index * 0.06}>
             <div className="h-full border-l border-white/15 px-5 sm:px-6">
@@ -115,10 +113,7 @@ export function BrandIdentityCards() {
             webinars, workshops, guest lectures, and training sessions for students,
             professionals, and interested organizations.
           </p>
-          <ButtonLink
-            href="/contact?category=Seminar%20Request"
-            className="mt-6 w-fit"
-          >
+          <ButtonLink href="/contact?category=Seminar%20Request" className="mt-6 w-fit">
             Invite Me for a Session <ArrowUpRight size={16} aria-hidden="true" />
           </ButtonLink>
         </article>

@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 
 const isDev = process.env.NODE_ENV === 'development';
-const apiOrigin = new URL(process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api/v1').origin;
 
 /**
  * No third-party scripts are loaded. `unsafe-inline` is still required for the
@@ -14,15 +13,13 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
-  `connect-src 'self' ${apiOrigin}${isDev ? ' ws: wss:' : ''}`,
-  "frame-src 'self' https://maps.google.com https://www.google.com",
+  `connect-src 'self'${isDev ? ' ws: wss:' : ''}`,
   "form-action 'self'",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "object-src 'none'",
   ...(isDev ? [] : ['upgrade-insecure-requests']),
 ].join('; ');
-
 
 const securityHeaders = [
   { key: 'Content-Security-Policy', value: contentSecurityPolicy },

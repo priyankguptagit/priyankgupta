@@ -1,3 +1,4 @@
+import 'server-only';
 import type { Project } from '@/types';
 
 export const projects: readonly Project[] = [
@@ -21,8 +22,21 @@ export const projects: readonly Project[] = [
       'Designing CI/CD pipelines and containerized cloud deployments using Azure DevOps.',
       'Driving scalability, performance optimization, and cross-functional technical leadership.',
     ],
-    technologies: ['MERN Stack', 'Next.js', 'Microservices', 'REST APIs', 'Azure DevOps', 'CI/CD', 'Containerization', 'AI/ML'],
-    categories: ['Enterprise Architecture', 'Full-Stack Development', 'AI / Machine Learning'],
+    technologies: [
+      'MERN Stack',
+      'Next.js',
+      'Microservices',
+      'REST APIs',
+      'Azure DevOps',
+      'CI/CD',
+      'Containerization',
+      'AI/ML',
+    ],
+    categories: [
+      'Enterprise Architecture',
+      'Full-Stack Development',
+      'AI / Machine Learning',
+    ],
     category: 'Enterprise Architecture',
     featured: true,
     sortOrder: 1,
@@ -49,7 +63,14 @@ export const projects: readonly Project[] = [
       'Driving system architecture, performance optimization, and secure API design.',
       'Leading a cross-functional development team and serving as the primary technical liaison with clients.',
     ],
-    technologies: ['MERN Stack', 'Next.js', 'Redux', 'Azure', 'CI/CD', 'Containerization'],
+    technologies: [
+      'MERN Stack',
+      'Next.js',
+      'Redux',
+      'Azure',
+      'CI/CD',
+      'Containerization',
+    ],
     categories: ['Enterprise Architecture', 'Full-Stack Development'],
     category: 'Enterprise Architecture',
     featured: true,
@@ -103,7 +124,11 @@ export const projects: readonly Project[] = [
       'Contributed to AI-driven financial analytics features.',
     ],
     technologies: ['MERN Stack', 'AWS', 'Predictive Modelling', 'Technical Indicators'],
-    categories: ['Financial Technology', 'AI / Machine Learning', 'Full-Stack Development'],
+    categories: [
+      'Financial Technology',
+      'AI / Machine Learning',
+      'Full-Stack Development',
+    ],
     category: 'Financial Technology',
     featured: true,
     sortOrder: 4,
@@ -172,9 +197,7 @@ export const projects: readonly Project[] = [
     location: 'New Delhi',
     overview:
       'This project involved developing and maintaining the organization’s primary website, supporting its public information needs and digital presence during a growth phase.',
-    responsibilities: [
-      'Developed and maintained the company\'s primary website.',
-    ],
+    responsibilities: ["Developed and maintained the company's primary website."],
     technologies: ['PHP', 'MySQL'],
     categories: ['Web Applications'],
     category: 'Web Applications',
@@ -195,9 +218,7 @@ export const projects: readonly Project[] = [
     location: 'New Delhi',
     overview:
       'This project centered on building a company website with an emphasis on corporate presence and product/service communication. It supported the organization’s branding and digital outreach during its early growth phase.',
-    responsibilities: [
-      'Designed and developed the corporate website.',
-    ],
+    responsibilities: ['Designed and developed the corporate website.'],
     technologies: ['PHP', 'MySQL'],
     categories: ['Web Applications'],
     category: 'Web Applications',
@@ -218,9 +239,7 @@ export const projects: readonly Project[] = [
     location: 'New Delhi',
     overview:
       'This student portal helped organize monitoring and management tasks for a student-focused environment. It focused on administrative visibility and process support in a digital portal setting.',
-    responsibilities: [
-      'Developed a student-monitoring and management portal.',
-    ],
+    responsibilities: ['Developed a student-monitoring and management portal.'],
     technologies: ['PHP', 'MySQL'],
     categories: ['Web Applications'],
     category: 'Web Applications',
@@ -232,12 +251,11 @@ export const projects: readonly Project[] = [
   },
 ].sort((a, b) => (a.sortOrder ?? 999) - (b.sortOrder ?? 999));
 
+export const publicProjects = projects.filter(
+  (project) => !project.confidential && project.visibility === 'approved'
+);
+
 export const projectCategories = [
   'All',
-  'Enterprise Architecture',
-  'Full-Stack Development',
-  'AI / Machine Learning',
-  'Financial Technology',
-  'Workflow Automation',
-  'Web Applications',
+  ...new Set(publicProjects.flatMap((project) => project.categories)),
 ] as const;

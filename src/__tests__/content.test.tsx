@@ -1,13 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import { ProjectCard, AudienceCard } from '@/components/ui/ContentCards';
+import { AudienceCard } from '@/components/ui/ContentCards';
 import { Hero } from '@/components/home/Hero';
+import AboutPage from '@/app/about/page';
+import ProjectsPage from '@/app/projects/page';
+import { publicCapabilityAreas } from '@/components/expertise/ExpertiseScreen';
 import { BrandIdentityCards, ResearchPreview } from '@/components/home/BrandSections';
 import KnowledgeSharingPage from '@/app/knowledge-sharing/page';
 import ResourcesPage from '@/app/resources/page';
 import SessionsPage from '@/app/sessions/page';
 import { siteConfig, socialLinks } from '@/content/site';
 import { createMetadata } from '@/lib/seo';
-import { projects } from '@/content/projects';
+import { projectCategories, projects, publicProjects } from '@/content/projects';
 import { audiences } from '@/content/audiences';
 import { publishedArticles } from '@/content/insights';
 import { publicAchievements } from '@/content/achievements';
@@ -56,7 +59,7 @@ it('renders the owner identity, professional headline, and portfolio calls to ac
     'href',
     '/projects'
   );
-  expect(screen.getByRole('link', { name: 'Explore Learning Sessions' })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: 'Explore session topics' })).toHaveAttribute(
     'href',
     '/knowledge-sharing'
   );
@@ -64,13 +67,39 @@ it('renders the owner identity, professional headline, and portfolio calls to ac
     screen.getByRole('link', { name: 'Invite Me for a Free Session' })
   ).toHaveAttribute('href', '/contact?category=Seminar%20Request');
   expect(screen.queryByRole('link', { name: /View Resume/i })).not.toBeInTheDocument();
-  const resumeDownload = screen.getByRole('link', { name: 'Download Resume' });
-  expect(resumeDownload).toHaveAttribute('href', '/Priyank-Gupta-Resume-2026.pdf');
-  expect(resumeDownload).toHaveAttribute('download', 'Priyank-Gupta-Resume-2026.pdf');
   expect(screen.getByRole('img', { name: /Dr\. Priyank Gupta/ })).toHaveAttribute(
     'src',
     expect.stringContaining('PriyankGupta')
   );
+});
+it('offers the Resume PDF as a direct download from About', () => {
+  render(<AboutPage />);
+  const resumeDownload = screen.getByRole('link', { name: 'Download Resume' });
+  expect(resumeDownload).toHaveAttribute('href', '/Priyank-Gupta-Resume-2026.pdf');
+  expect(resumeDownload).toHaveAttribute('download', 'Priyank-Gupta-Resume-2026.pdf');
+});
+it('publishes only projects explicitly approved for public sharing', () => {
+  expect(publicProjects).toEqual(
+    projects.filter(
+      (project) => project.visibility === 'approved' && !project.confidential
+    )
+  );
+  expect(publicProjects).toHaveLength(0);
+  const publicProjectIds = new Set(publicProjects.map((project) => project.id));
+  const linkedProjectIds = publicCapabilityAreas.flatMap((area) => area.projectIds);
+  expect(linkedProjectIds.every((id) => publicProjectIds.has(id))).toBe(true);
+  expect(linkedProjectIds).toHaveLength(0);
+  expect(projectCategories).toEqual([
+    'All',
+    ...new Set(publicProjects.flatMap((project) => project.categories)),
+  ]);
+});
+it('does not render confidential projects when none are approved', () => {
+  render(<ProjectsPage />);
+  expect(
+    screen.getByRole('heading', { name: 'No projects are published yet' })
+  ).toBeInTheDocument();
+  expect(screen.queryByText('OneMES')).not.toBeInTheDocument();
 });
 it('presents the two brand pillars and previews existing research', () => {
   const firstPaper = researchWorks[0];
@@ -105,16 +134,6 @@ it('does not publish private contact information or unapproved links', () => {
   expect(experiences.find((item) => item.currentlyWorking)?.company).toBe(
     'Bayer Crop Science Ltd.'
   );
-});
-it('renders safe project cards and approval status', () => {
-  const project = projects[0];
-  if (!project) throw new Error('Missing project');
-  render(<ProjectCard project={project} />);
-  expect(screen.getByRole('heading', { name: project.title })).toBeInTheDocument();
-  expect(
-    screen.getByText('Public description subject to owner approval.')
-  ).toBeInTheDocument();
-  expect(screen.queryByRole('link')).not.toBeInTheDocument();
 });
 it('renders configured audience recommendations', () => {
   const audience = audiences.find((item) => item.name === 'College Students');

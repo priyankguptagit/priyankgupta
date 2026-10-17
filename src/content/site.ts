@@ -35,7 +35,7 @@ export const siteConfig = {
   disclaimer:
     'All views, opinions and content expressed on this website are personal and do not represent the views, strategy or opinions of any current or previous employer, client or partner.',
   privacyNote:
-    'This website does not use advertising cookies or third-party trackers. Form submissions are used only to respond to your enquiry.',
+    'No analytics or advertising trackers are used. Contact requests are sent to the configured inquiry service; see the privacy notice for details.',
 } as const;
 
 /** Served from /public/images. Replace the file in place to swap the portrait. */

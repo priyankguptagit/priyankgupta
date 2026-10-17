@@ -1,8 +1,5 @@
 import Link from 'next/link';
-import {
-  ArrowDownRight,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowDownRight, ArrowRight } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
 import { Section, SectionHeading } from '@/components/ui/Section';
 import { articles } from '@/content/insights';
@@ -13,11 +10,16 @@ import {
   expertiseIntroduction,
   problemSolvingApproach,
 } from '@/content/expertise';
-import { projects } from '@/content/projects';
+import { publicProjects } from '@/content/projects';
 import { CapabilityExplorer } from './CapabilityExplorer';
 import { TechnologyMap } from './TechnologyMap';
 
-const projectsById = new Map(projects.map((project) => [project.id, project]));
+const projectsById = new Map(publicProjects.map((project) => [project.id, project]));
+const publicProjectIds = new Set(publicProjects.map((project) => project.id));
+export const publicCapabilityAreas = capabilityAreas.map((area) => ({
+  ...area,
+  projectIds: area.projectIds.filter((projectId) => publicProjectIds.has(projectId)),
+}));
 
 const appliedProjectIds = [
   ...new Set(capabilityAreas.flatMap((area) => area.projectIds)),
@@ -32,8 +34,9 @@ export function ExpertiseScreen() {
     ...category,
     skills: category.skills.filter(
       (skill, index, skills) =>
-        skills.findIndex((candidate) => candidate.toLowerCase() === skill.toLowerCase()) ===
-        index
+        skills.findIndex(
+          (candidate) => candidate.toLowerCase() === skill.toLowerCase()
+        ) === index
     ),
   }));
 
@@ -90,7 +93,7 @@ export function ExpertiseScreen() {
           description="A focused overview of professional interests and selected skills."
         />
         <div className="mt-8">
-          <CapabilityExplorer />
+          <CapabilityExplorer areas={publicCapabilityAreas} projects={publicProjects} />
         </div>
       </Section>
 
@@ -115,7 +118,9 @@ export function ExpertiseScreen() {
                   <span className="font-mono text-xs text-aqua-300">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <span className="truncate font-semibold text-white">{category.title}</span>
+                  <span className="truncate font-semibold text-white">
+                    {category.title}
+                  </span>
                   <span className="hidden text-xs text-slate-500 sm:inline">
                     {category.skills.length} skills
                   </span>
@@ -172,54 +177,57 @@ export function ExpertiseScreen() {
         </ol>
       </Section>
 
-      <Section width="wide">
-        <SectionHeading
-          eyebrow="From capability to application"
-          title="Applied in Practice"
-          description="Examples from the existing project portfolio, connected to the capability areas they relate to."
-        />
-        {appliedProjects.length > 0 && (
-          <ul className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {appliedProjects.slice(0, 6).map((project) => (
-              <li key={project.id}>
-                <Link
-                  href={`/projects#${project.id}`}
-                  className="group flex h-full flex-col rounded-xl border border-white/10 bg-ink-900/70 p-5 transition-colors hover:border-aqua-300/35 hover:bg-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aqua-300"
-                >
-                  <span className="text-xs font-medium uppercase tracking-wide text-aqua-300">
-                    {project.category}
-                  </span>
-                  <span className="mt-2 text-lg font-semibold leading-snug text-white">
-                    {project.title}
-                  </span>
-                  <span className="mt-2 line-clamp-3 text-sm leading-6 text-slate-300">
-                    {project.overview}
-                  </span>
-                  <span className="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-semibold text-aqua-300 group-hover:text-white">
-                    View in project portfolio <ArrowRight size={15} aria-hidden="true" />
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-        {publishedArticles.length > 0 && (
-          <ul className="mt-6 flex flex-wrap gap-3">
-            {publishedArticles.map((article) => {
-              return (
-                <li key={article.slug}>
+      {(appliedProjects.length > 0 || publishedArticles.length > 0) && (
+        <Section width="wide">
+          <SectionHeading
+            eyebrow="From capability to application"
+            title="Applied in Practice"
+            description="Examples from the existing project portfolio, connected to the capability areas they relate to."
+          />
+          {appliedProjects.length > 0 && (
+            <ul className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {appliedProjects.slice(0, 6).map((project) => (
+                <li key={project.id}>
                   <Link
-                    href={`/insights/${article.slug}`}
-                    className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 px-4 text-sm font-medium text-slate-200 hover:border-aqua-300/40 hover:text-white"
+                    href={`/projects#${project.id}`}
+                    className="group flex h-full flex-col rounded-xl border border-white/10 bg-ink-900/70 p-5 transition-colors hover:border-aqua-300/35 hover:bg-ink-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aqua-300"
                   >
-                    {article.title} <ArrowRight size={15} aria-hidden="true" />
+                    <span className="text-xs font-medium uppercase tracking-wide text-aqua-300">
+                      {project.category}
+                    </span>
+                    <span className="mt-2 text-lg font-semibold leading-snug text-white">
+                      {project.title}
+                    </span>
+                    <span className="mt-2 line-clamp-3 text-sm leading-6 text-slate-300">
+                      {project.overview}
+                    </span>
+                    <span className="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-semibold text-aqua-300 group-hover:text-white">
+                      View in project portfolio{' '}
+                      <ArrowRight size={15} aria-hidden="true" />
+                    </span>
                   </Link>
                 </li>
-              );
-            })}
-          </ul>
-        )}
-      </Section>
+              ))}
+            </ul>
+          )}
+          {publishedArticles.length > 0 && (
+            <ul className="mt-6 flex flex-wrap gap-3">
+              {publishedArticles.map((article) => {
+                return (
+                  <li key={article.slug}>
+                    <Link
+                      href={`/insights/${article.slug}`}
+                      className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 px-4 text-sm font-medium text-slate-200 hover:border-aqua-300/40 hover:text-white"
+                    >
+                      {article.title} <ArrowRight size={15} aria-hidden="true" />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </Section>
+      )}
 
       <Section className="border-t border-white/10 bg-ink-900/45" width="wide">
         <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto]">

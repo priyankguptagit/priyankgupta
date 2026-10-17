@@ -1,28 +1,29 @@
 # Contact form integration
 
-The portfolio contains the contact form and browser-side REST client, but no inquiry
-API implementation. The form sends requests to an independently hosted service.
+The site validates requests in a same-origin Next.js Route Handler and forwards them
+to an independently hosted inquiry API. The external API implementation and its
+storage/email providers are not part of this repository.
 
 ## Configure the destination
 
-Set `NEXT_PUBLIC_API_BASE_URL` to the base URL of the inquiry API before building or
+Set the server-only `INQUIRY_API_BASE_URL` to the base URL of the inquiry API before
 deploying the website. For example:
 
 ```dotenv
-NEXT_PUBLIC_API_BASE_URL=https://api.example.org/api/v1
+INQUIRY_API_BASE_URL=https://api.example.org/api/v1
 ```
 
-The client sends a JSON `POST` to `${NEXT_PUBLIC_API_BASE_URL}/inquiries`. The value is
-included in the browser bundle and is not a place for credentials. Do not add API keys,
-database credentials, or mail-provider secrets to any `NEXT_PUBLIC_*` variable. The
-sample localhost value in `.env.example` is for local development only; production must
-be pointed at a real, HTTPS service.
+The browser sends JSON to the same-origin `/api/inquiries` route. The route validates
+the request again and forwards it to `${INQUIRY_API_BASE_URL}/inquiries`. Keep the URL
+and any credentials needed by the external API server-side; never use a `NEXT_PUBLIC_*`
+variable for secrets. The sample localhost value in `.env.example` is for local
+development only; production must be configured with a real HTTPS service.
 
-The endpoint must accept the current form fields, including `subject` and
-`organizationWebsite`, allow cross-origin requests from the deployed website, validate
-every field server-side, apply rate limiting and spam controls, store inquiry data
-securely, and return safe error responses. Browser-side validation is for usability and
-is not a security boundary.
+The external API must accept the current form fields, including `subject` and
+`organizationWebsite`, validate every field, apply rate limiting and spam controls,
+store inquiries securely, and return the response contract below. The browser and
+website route both validate input, but the external API must also validate it; website
+validation is not a security boundary for the external service.
 
 ## Response contract
 
@@ -44,8 +45,9 @@ notification, the form tells the visitor not to submit it again.
 
 ## Deployment check
 
-Before accepting live requests, configure the service URL in the website's deployment
-environment, verify the API is reachable over HTTPS, confirm its CORS policy and
-server-side protections, and test both successful and failed submissions. If the
-variable is absent in production, the website reports that the inquiry service is not
-configured instead of showing a false success state.
+Before accepting live requests, configure `INQUIRY_API_BASE_URL` in the website's
+server environment, verify the API is reachable over HTTPS, confirm its validation,
+rate limiting, spam controls, storage, access, retention, and deletion behavior, and
+test successful, failed, and timeout responses. The same-origin route does not persist
+submissions itself. If the variable is absent or invalid, it returns an error instead
+of showing a false success state.

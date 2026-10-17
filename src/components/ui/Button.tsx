@@ -48,13 +48,13 @@ export function ButtonLink({
 }: ButtonLinkProps) {
   const classes = cn(base, variants[variant], sizes[size], className);
 
-  if (external) {
+  if (external || download) {
     return (
       <a
         href={href}
         className={classes}
-        rel="noopener noreferrer"
-        target="_blank"
+        rel={external ? 'noopener noreferrer' : undefined}
+        target={external ? '_blank' : undefined}
         download={download}
       >
         {children}

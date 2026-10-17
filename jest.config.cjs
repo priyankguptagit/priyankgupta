@@ -9,4 +9,7 @@ module.exports = createJestConfig({
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   modulePathIgnorePatterns: ['<rootDir>/.next/'],
+  moduleNameMapper: {
+    '^server-only$': '<rootDir>/src/test-mocks/server-only.ts',
+  },
 });

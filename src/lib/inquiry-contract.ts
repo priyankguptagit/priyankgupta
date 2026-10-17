@@ -285,7 +285,21 @@ export const inquirySchema = z
 
 export type InquiryInput = z.infer<typeof inquirySchema>;
 export type FieldError = { field: string; message: string };
-
+export const inquirySuccessResponseSchema = z.object({
+  success: z.literal(true),
+  data: z.object({ referenceId: z.string().uuid() }),
+  requestId: z.string().uuid(),
+});
+export const inquiryFailureResponseSchema = z.object({
+  success: z.literal(false),
+  requestId: z.string().uuid().optional(),
+  recordSubmitted: z.boolean().optional(),
+  data: z.object({ referenceId: z.string().uuid() }).optional(),
+  errors: z
+    .array(z.object({ field: z.string().max(100), message: z.string().max(300) }))
+    .max(40)
+    .optional(),
+});
 export function validationErrors(error: z.ZodError): FieldError[] {
   return error.issues.map((issue) => ({
     field: String(issue.path[0] || 'form'),

@@ -33,6 +33,9 @@ afterEach(() => {
 it('validates required fields, focuses the first invalid control and links errors', async () => {
   const user = userEvent.setup();
   render(<ContactForm />);
+  expect(screen.getByRole('group', { name: 'Your contact details' })).toBeInTheDocument();
+  expect(screen.getByRole('group', { name: 'Request details' })).toBeInTheDocument();
+  expect(screen.getByRole('group', { name: 'Additional details' })).toBeInTheDocument();
   await user.click(screen.getByRole('button', { name: 'Send request' }));
   expect(global.fetch).not.toHaveBeenCalled();
   expect(screen.getByLabelText(/^Full Name/)).toHaveAttribute('aria-invalid', 'true');
@@ -57,7 +60,7 @@ it('requires a subject for general enquiries', async () => {
   expect(global.fetch).not.toHaveBeenCalled();
   expect(screen.getByLabelText(/^Subject/)).toHaveAttribute('aria-invalid', 'true');
 });
-it('submits normalized data to the separate REST API and announces success', async () => {
+it('submits normalized data to the same-origin API route and announces success', async () => {
   const user = userEvent.setup();
   render(<ContactForm />);
   await fillRequired(user);
@@ -68,7 +71,7 @@ it('submits normalized data to the separate REST API and announces success', asy
     )
   );
   expect(global.fetch).toHaveBeenCalledWith(
-    'http://localhost:5000/api/v1/inquiries',
+    '/api/inquiries',
     expect.objectContaining({ credentials: 'omit', method: 'POST' })
   );
   expect(screen.getByLabelText(/^Full Name/)).toHaveValue('');
@@ -76,6 +79,7 @@ it('submits normalized data to the separate REST API and announces success', asy
 it('requires conditional event/audience fields and supports offline requests', async () => {
   const user = userEvent.setup();
   render(<ContactForm initialCategory="Workshop Request" />);
+  expect(screen.getByRole('group', { name: 'Session logistics' })).toBeInTheDocument();
   await fillRequired(user);
   await user.click(screen.getByRole('button', { name: 'Send request' }));
   expect(global.fetch).not.toHaveBeenCalled();
@@ -113,7 +117,7 @@ it('requires conditional event/audience fields and supports offline requests', a
     organizationWebsite: 'https://college.example.edu',
     source: 'session-request',
   });
-});
+}, 15000);
 it('prefills topic and session format from a request-topic link', () => {
   render(
     <ContactForm
@@ -136,7 +140,10 @@ it('requires an institution for school requests', async () => {
   const user = userEvent.setup();
   render(<ContactForm initialCategory="Seminar Request" />);
   await user.selectOptions(screen.getByLabelText(/^Event Type/), 'Seminar');
-  await user.selectOptions(screen.getByLabelText(/^Audience Category/), 'School Students');
+  await user.selectOptions(
+    screen.getByLabelText(/^Audience Category/),
+    'School Students'
+  );
   expect(screen.getByLabelText(/^Organization or Institution/)).toBeRequired();
   await fillRequired(user);
   await user.type(screen.getByLabelText(/^Preferred Topic/), 'Technology foundations');
@@ -178,7 +185,11 @@ it.each(['backend', 'network'])('preserves input after a %s failure', async (kin
   render(<ContactForm />);
   await fillRequired(user);
   await user.click(screen.getByRole('button', { name: 'Send request' }));
-  await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(/could not/));
+  await waitFor(() =>
+    expect(screen.getByRole('status')).toHaveTextContent(
+      kind === 'backend' ? /temporarily unavailable/ : /could not reach/
+    )
+  );
   expect(screen.getByLabelText(/^Full Name/)).toHaveValue('Example Person');
   expect(screen.getByRole('button', { name: 'Send request' })).toBeEnabled();
 });

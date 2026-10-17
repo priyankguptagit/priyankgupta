@@ -2,14 +2,19 @@ import { EmptyState } from '@/components/ui/ContentCards';
 import { ProjectCard } from './ProjectCard';
 import type { Project } from '@/types';
 
-export function ProjectGrid({ projects, onSelectProject }: { readonly projects: readonly Project[]; readonly onSelectProject: (project: Project) => void }) {
+export function ProjectGrid({
+  projects,
+  onSelectProject,
+  emptyTitle,
+  emptyMessage,
+}: {
+  readonly projects: readonly Project[];
+  readonly onSelectProject: (project: Project) => void;
+  readonly emptyTitle: string;
+  readonly emptyMessage: string;
+}) {
   if (projects.length === 0) {
-    return (
-      <EmptyState
-        title="No matching projects"
-        message="Try a different category or search query to explore more of the project portfolio."
-      />
-    );
+    return <EmptyState title={emptyTitle} message={emptyMessage} />;
   }
 
   return (

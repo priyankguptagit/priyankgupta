@@ -18,6 +18,56 @@ import { inquiryFields, type InquiryField } from '@/features/contact/fields';
 import { submitInquiry } from '@/lib/apiClient';
 import { topicNames } from '@/content/session-topics';
 
+const fieldGroups: readonly {
+  title: string;
+  names: ReadonlySet<string>;
+}[] = [
+  {
+    title: 'Your contact details',
+    names: new Set([
+      'fullName',
+      'email',
+      'phone',
+      'organization',
+      'organizationWebsite',
+      'designation',
+    ]),
+  },
+  {
+    title: 'Request details',
+    names: new Set([
+      'category',
+      'subject',
+      'eventType',
+      'audienceCategory',
+      'otherAudienceDescription',
+      'proposedTopic',
+      'audienceType',
+      'expectedParticipants',
+      'participantAgeGroup',
+      'participantExperienceLevel',
+    ]),
+  },
+  {
+    title: 'Session logistics',
+    names: new Set([
+      'preferredMode',
+      'preferredDate',
+      'alternateDate',
+      'preferredStartTime',
+      'expectedDuration',
+      'city',
+      'state',
+      'country',
+      'venueAvailable',
+    ]),
+  },
+  {
+    title: 'Additional details',
+    names: new Set(['technicalFacilities', 'message']),
+  },
+];
+
 function initialValues(
   category: string,
   topic: string,
@@ -165,36 +215,55 @@ export function ContactForm({
           </ul>
         </div>
       )}
-      <fieldset
-        disabled={submitting}
-        className="grid min-w-0 items-end gap-x-5 gap-y-8 sm:grid-cols-2"
-      >
-        <legend className="sr-only">Request details</legend>
-        {visibleFields.map((field) => (
-          <div
-            key={field.name}
-            className={field.type === 'textarea' ? 'sm:col-span-2' : ''}
-          >
-            <InquiryControl
-              field={field}
-              value={values[field.name] || ''}
-              required={
-                field.required ||
-                (field.name === 'organization' &&
-                  requiresOrganization(
-                    values.category || categories[0],
-                    values.audienceCategory || ''
-                  )) ||
-                (['city', 'country'].includes(field.name) && locationRequired)
-              }
-              error={errors.find((error) => error.field === field.name)?.message}
-              onChange={(value) =>
-                setValues((current) => ({ ...current, [field.name]: value }))
-              }
-            />
-          </div>
-        ))}
-      </fieldset>
+      <div className="space-y-7">
+        {fieldGroups.map((group) => {
+          const groupFields = visibleFields.filter((field) =>
+            group.names.has(field.name)
+          );
+          if (groupFields.length === 0) return null;
+
+          return (
+            <fieldset
+              key={group.title}
+              disabled={submitting}
+              className="min-w-0 border-t border-white/10 pt-5"
+            >
+              <legend className="mb-4 px-0 text-base font-semibold text-white">
+                {group.title}
+              </legend>
+              <div className="grid min-w-0 items-end gap-x-5 gap-y-8 sm:grid-cols-2">
+                {groupFields.map((field) => (
+                  <div
+                    key={field.name}
+                    className={field.type === 'textarea' ? 'sm:col-span-2' : ''}
+                  >
+                    <InquiryControl
+                      field={field}
+                      value={values[field.name] || ''}
+                      required={
+                        field.required ||
+                        (field.name === 'organization' &&
+                          requiresOrganization(
+                            values.category || categories[0],
+                            values.audienceCategory || ''
+                          )) ||
+                        (['city', 'country'].includes(field.name) && locationRequired)
+                      }
+                      error={errors.find((error) => error.field === field.name)?.message}
+                      onChange={(value) =>
+                        setValues((current) => ({
+                          ...current,
+                          [field.name]: value,
+                        }))
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+          );
+        })}
+      </div>
       {eventRequest && (
         <p className="text-sm">
           Sessions are free and subject to confirmation. Dates must be today or later
